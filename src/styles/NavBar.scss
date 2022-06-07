@@ -1,0 +1,16 @@
+@import "Variables";
+
+ul {
+	background-color: $color-nav;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	height: 80px;
+	li {
+		margin: 15px;
+		padding: 10px;
+		list-style: none;
+		font-family: $letra-nav;
+		font-size: 25px;
+	}
+}
