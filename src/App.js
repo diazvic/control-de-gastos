@@ -6,7 +6,7 @@ import Reportes from "./components/Reportes";
 import "./App.scss";
 const App = () => {
 	return (
-		<div>
+		<div className="contenedor-principal">
 			<BrowserRouter>
 				<NavBar />
 				<Routes>
