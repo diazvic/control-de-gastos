@@ -5,6 +5,9 @@ nav {
 	@include flex-space-between;
 	.contenedor-nav-titulo {
 		color: #fff;
+		h1 {
+			@include capitalizar-texto;
+		}
 		.icono-nav-cartera {
 			margin: 0.313rem;
 		}
@@ -24,6 +27,7 @@ nav {
 					padding: 1rem;
 					color: #fff;
 					font-size: 1rem;
+					@include capitalizar-texto;
 					.iconos-nav {
 						margin-right: 0.5rem;
 					}

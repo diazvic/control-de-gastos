@@ -31,3 +31,6 @@ body {
 	display: flex;
 	justify-content: space-between;
 }
+@mixin capitalizar-texto {
+	text-transform: capitalize;
+}

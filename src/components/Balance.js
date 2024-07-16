@@ -1,16 +1,65 @@
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-
+import "../styles/_Balance.scss";
+import imagenOperacion from "../imagenes/imagenOperacion.svg";
 const Balance = () => {
 	return (
 		<section>
-			<Box>
-				<Card sx={{ maxWidth: 300 }}>
-					<div>ganancias</div>
-					<div>gastos</div>
-					<div>total</div>
-				</Card>
-			</Box>
+			<div className="columnas-balance">
+				<div className="contenedor-balance">
+					<h2>balance</h2>
+					<div className="contenedor-filas">
+						<div>ganancias</div>
+						<div>$+0</div>
+					</div>
+					<div className="contenedor-filas">
+						<div>gastos</div>
+						<div>$-0</div>
+					</div>
+					<div className="contenedor-filas">
+						<div>total</div>
+						<div>$0</div>
+					</div>
+				</div>
+				<div className="contenedor-balance filtros">
+					<div className="contenedor-filtros">
+						<h3>filtros</h3>
+						<button>ocultar filtros</button>
+					</div>
+					<form className="formulario-filtros">
+						<label>tipo</label>
+						<select>
+							<option>todos</option>
+							<option>gasto</option>
+							<option>ganancia</option>
+						</select>
+						<label>categoria</label>
+						<select>
+							<option>todos</option>
+							<option>gasto</option>
+							<option>ganancia</option>
+						</select>
+						<label>desde</label>
+						<input type="date"></input>
+						<label>ordenar por</label>
+						<select>
+							<option>más reciente</option>
+							<option>menos reciente</option>
+							<option>mayor monto</option>
+							<option>menor monto</option>
+							<option>a/z</option>
+							<option>z/a</option>
+						</select>
+					</form>
+				</div>
+			</div>
+			<div className="contenedor-operacion-balance">
+				<div className="operacion-balance-titulo">
+					<h3>operaciones</h3>
+					<button>+ nueva operacion</button>
+				</div>
+				<div className="contenedor-img-operacion">
+					<img src={imagenOperacion} alt="operaciones en un ordenador" />
+				</div>
+			</div>
 		</section>
 	);
 };
