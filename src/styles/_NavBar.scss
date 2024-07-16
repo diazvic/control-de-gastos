@@ -1,0 +1,38 @@
+@import "_Variables";
+@import "../App.scss";
+nav {
+	background-color: $color-principal;
+	@include flex-space-between;
+	.contenedor-nav-titulo {
+		color: #fff;
+		.icono-nav-cartera {
+			margin: 0.313rem;
+		}
+		@include flex;
+		margin: 1rem;
+		padding: 0.5rem;
+	}
+	.contenedor-nav-lista {
+		ul {
+			list-style: none;
+			display: flex;
+			li {
+				margin: 1rem;
+				.link-nav {
+					text-decoration: none;
+					margin: 2rem;
+					padding: 1rem;
+					color: #fff;
+					font-size: 1rem;
+					.iconos-nav {
+						margin-right: 0.5rem;
+					}
+					&:hover {
+						background-color: $color-hover;
+						border-radius: 0.4rem;
+					}
+				}
+			}
+		}
+	}
+}
