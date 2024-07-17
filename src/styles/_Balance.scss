@@ -7,19 +7,32 @@ section {
 		box-shadow: 0px 7px 26px -3px rgba(0, 0, 0, 0.2);
 		background-color: #fff;
 		width: 18.75rem;
-		height: 18.75rem;
 		border-radius: 0.625rem;
 		margin: 1rem;
 		h2 {
 			@include capitalizar-texto;
-			margin: 1rem;
+			color: $color-titulos;
+			padding: 1.125rem;
 			font-size: 2rem;
+		}
+		.grupo-filas {
+			height: 13rem;
 		}
 		.contenedor-filas {
 			@include flex-space-between;
 			@include capitalizar-texto;
 			margin: 1rem;
 			padding: 0.5rem;
+			font-size: 1.1rem;
+			.total-balance {
+				font-size: 1.25rem;
+			}
+			.ganancia {
+				color: $color-ganancia;
+			}
+			.gasto {
+				color: $color-gasto;
+			}
 		}
 	}
 	.filtros {
@@ -28,15 +41,41 @@ section {
 			@include flex-space-between;
 			h3 {
 				@include capitalizar-texto;
-				font-size: 1.625rem;
+				font-size: 1.725rem;
+				padding: 0.625rem;
+				margin: 0;
+				color: $color-titulos;
 			}
 			button {
 				@include capitalizar-texto;
+				color: $color-botones;
+				border: none;
+				background-color: transparent;
+				font-size: 0.9rem;
+				padding: 0.625rem;
 			}
 		}
 	}
 	.formulario-filtros {
 		@include flex-column;
+		label {
+			@include capitalizar-texto;
+			padding: 0.3125rem;
+			margin-top: 0.5rem;
+			font-weight: bold;
+			font-size: 1.125rem;
+			color: $color-form;
+		}
+		select,
+		input {
+			border: 1px solid #dbdbdb;
+			padding: 0.8rem;
+			margin-bottom: 0.5rem;
+			option {
+				background-color: #f8f8f8;
+				color: #333;
+			}
+		}
 	}
 	.contenedor-operacion-balance {
 		background-color: #fff;
@@ -45,12 +84,14 @@ section {
 		margin: 1rem;
 		height: 37.5rem;
 		width: 47rem;
+		border-radius: 0.625rem;
 		.operacion-balance-titulo {
 			@include flex-space-between;
 			margin: 1rem;
 			h3 {
 				@include capitalizar-texto;
 				font-size: 1.625rem;
+				color: $color-titulos;
 			}
 			.btn-operacion {
 				background-color: $color-principal;
@@ -59,6 +100,9 @@ section {
 				border-radius: 0.625rem;
 				padding: 0.9375rem;
 				font-size: 1rem;
+			}
+			.btn-operacion:hover {
+				background-color: $color-hover;
 			}
 		}
 		.contenedor-img-operacion {
@@ -75,6 +119,7 @@ section {
 				font-size: 1.5rem;
 				margin: 1rem;
 				padding: 0.5rem;
+				color: $color-titulos;
 			}
 		}
 	}
