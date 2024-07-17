@@ -58,6 +58,11 @@ section {
 	}
 	.formulario-filtros {
 		@include flex-column;
+		overflow: hidden;
+		transition: max-height 0.3s ease-out;
+		&.oculto {
+			max-height: 0;
+		}
 		label {
 			@include capitalizar-texto;
 			padding: 0.3125rem;
