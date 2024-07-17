@@ -54,10 +54,14 @@ const Balance = () => {
 			<div className="contenedor-operacion-balance">
 				<div className="operacion-balance-titulo">
 					<h3>operaciones</h3>
-					<button>+ nueva operacion</button>
+					<button className="btn-operacion">+ Nueva operación</button>
 				</div>
 				<div className="contenedor-img-operacion">
 					<img src={imagenOperacion} alt="operaciones en un ordenador" />
+				</div>
+				<div className="parrafo-operaciones">
+					<h4>Sin resultados</h4>
+					<p>Cambia los filtros o agrega operaciones</p>
 				</div>
 			</div>
 		</section>

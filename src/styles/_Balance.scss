@@ -1,14 +1,8 @@
 @import "_Variables";
 @import "../App.scss";
 section {
-	background-color: $color-fondo-seccion;
-	display: flex;
-	justify-content: center;
-	height: 100vh;
-	// justify-content: space-around;
-	.columnas-balance {
-		background-color: red;
-	}
+	@include flex-justify;
+	margin: 2.5rem;
 	.contenedor-balance {
 		background-color: #fff;
 		width: 18.75rem;
@@ -18,56 +12,67 @@ section {
 		h2 {
 			@include capitalizar-texto;
 			margin: 1rem;
+			font-size: 2rem;
 		}
 		.contenedor-filas {
 			@include flex-space-between;
 			@include capitalizar-texto;
-			background-color: green;
 			margin: 1rem;
 			padding: 0.5rem;
 		}
 	}
 	.filtros {
-		background-color: pink;
 		padding: 1.125rem;
 		.contenedor-filtros {
-			// background-color: yellow;
 			@include flex-space-between;
-			h3,
+			h3 {
+				@include capitalizar-texto;
+				font-size: 1.625rem;
+			}
 			button {
 				@include capitalizar-texto;
 			}
 		}
 	}
 	.formulario-filtros {
-		//background-color: green;
 		@include flex-column;
 	}
 	.contenedor-operacion-balance {
 		background-color: #fff;
-		// background-color: green;
 		width: 40rem;
 		margin: 1rem;
 		height: 37.5rem;
 		width: 47rem;
 		.operacion-balance-titulo {
-			display: flex;
-			justify-content: space-between;
-			background-color: grey;
+			@include flex-space-between;
 			margin: 1rem;
 			h3 {
-				background-color: red;
 				@include capitalizar-texto;
+				font-size: 1.625rem;
+			}
+			.btn-operacion {
+				background-color: $color-principal;
+				color: #fff;
+				border: none;
+				border-radius: 0.625rem;
+				padding: 0.9375rem;
+				font-size: 1rem;
 			}
 		}
 		.contenedor-img-operacion {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
+			@include flex-justify;
+			padding: 2rem;
 			img {
-				max-width: 60%;
-				height: auto;
+				max-width: 70%;
+			}
+		}
+		.parrafo-operaciones {
+			@include flex-center;
+			@include flex-column;
+			h4 {
+				font-size: 1.5rem;
+				margin: 1rem;
+				padding: 0.5rem;
 			}
 		}
 	}
