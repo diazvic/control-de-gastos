@@ -1,6 +1,12 @@
 import "../styles/_Balance.scss";
 import imagenOperacion from "../imagenes/imagenOperacion.svg";
+import { useState } from "react";
 const Balance = () => {
+	const [mostrarFiltros, setMostrarFiltros] = useState(true);
+
+	const toggleFiltros = () => {
+		setMostrarFiltros(!mostrarFiltros);
+	};
 	return (
 		<section>
 			<div className="columnas-balance">
@@ -24,9 +30,13 @@ const Balance = () => {
 				<div className="contenedor-balance filtros">
 					<div className="contenedor-filtros">
 						<h3>filtros</h3>
-						<button>ocultar filtros</button>
+						<button onClick={toggleFiltros}>
+							{mostrarFiltros ? "ocultar filtros" : "mostrar filtros"}
+						</button>
 					</div>
-					<form className="formulario-filtros">
+					<form
+						className={`formulario-filtros ${mostrarFiltros ? "" : "oculto"}`}
+					>
 						<label>tipo</label>
 						<select>
 							<option>Todos</option>
