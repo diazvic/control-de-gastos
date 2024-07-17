@@ -4,6 +4,7 @@ section {
 	@include flex-justify;
 	margin: 2.5rem;
 	.contenedor-balance {
+		box-shadow: 0px 7px 26px -3px rgba(0, 0, 0, 0.2);
 		background-color: #fff;
 		width: 18.75rem;
 		height: 18.75rem;
@@ -39,6 +40,7 @@ section {
 	}
 	.contenedor-operacion-balance {
 		background-color: #fff;
+		box-shadow: 0px 7px 26px -3px rgba(0, 0, 0, 0.2);
 		width: 40rem;
 		margin: 1rem;
 		height: 37.5rem;
