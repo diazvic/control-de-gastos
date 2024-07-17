@@ -6,17 +6,19 @@ const Balance = () => {
 			<div className="columnas-balance">
 				<div className="contenedor-balance">
 					<h2>balance</h2>
-					<div className="contenedor-filas">
-						<div>ganancias</div>
-						<div>$+0</div>
-					</div>
-					<div className="contenedor-filas">
-						<div>gastos</div>
-						<div>$-0</div>
-					</div>
-					<div className="contenedor-filas">
-						<div>total</div>
-						<div>$0</div>
+					<div className="grupo-filas">
+						<div className="contenedor-filas">
+							<div>ganancias</div>
+							<div className="ganancia">$+0</div>
+						</div>
+						<div className="contenedor-filas">
+							<div>gastos</div>
+							<div className="gasto">$-0</div>
+						</div>
+						<div className="contenedor-filas">
+							<div className="total-balance">total</div>
+							<div>$0</div>
+						</div>
 					</div>
 				</div>
 				<div className="contenedor-balance filtros">
@@ -27,26 +29,26 @@ const Balance = () => {
 					<form className="formulario-filtros">
 						<label>tipo</label>
 						<select>
-							<option>todos</option>
-							<option>gasto</option>
-							<option>ganancia</option>
+							<option>Todos</option>
+							<option>Gasto</option>
+							<option>Ganancia</option>
 						</select>
 						<label>categoria</label>
 						<select>
-							<option>todos</option>
-							<option>gasto</option>
-							<option>ganancia</option>
+							<option>Todos</option>
+							<option>Gasto</option>
+							<option>Ganancia</option>
 						</select>
 						<label>desde</label>
 						<input type="date"></input>
 						<label>ordenar por</label>
 						<select>
-							<option>más reciente</option>
-							<option>menos reciente</option>
-							<option>mayor monto</option>
-							<option>menor monto</option>
-							<option>a/z</option>
-							<option>z/a</option>
+							<option>Más reciente</option>
+							<option>Menos reciente</option>
+							<option>Mayor monto</option>
+							<option>Menor monto</option>
+							<option>A/Z</option>
+							<option>Z/A </option>
 						</select>
 					</form>
 				</div>
