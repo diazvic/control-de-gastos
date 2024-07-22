@@ -1,15 +1,30 @@
 import "../styles/_Balance.scss";
+import "../styles/_ModalOperacion.scss";
 import imagenOperacion from "../imagenes/imagenOperacion.svg";
 import { useState } from "react";
+
 const Balance = () => {
 	const [mostrarFiltros, setMostrarFiltros] = useState(true);
+	const [mostrarModalOperacion, setMostrarModalOperacion] = useState(false);
 
+	//funcion para mostrar modal de filtros y a la vez ocultarlos
 	const toggleFiltros = () => {
 		setMostrarFiltros(!mostrarFiltros);
 	};
+	//funcion mostrar modal de nueva operacion
+	const handleClickNuevaOperacion = () => {
+		setMostrarModalOperacion(!mostrarModalOperacion);
+		setMostrarFiltros(!mostrarFiltros);
+	};
+	//funcion clic para cambiar el estado y volver a la seccion balance
+	const handleClickCancelarOperacion = () => {
+		setMostrarModalOperacion(false);
+	};
 	return (
 		<section>
-			<div className="columnas-balance">
+			<div
+				className={`columnas-balance ${mostrarModalOperacion ? "oculto" : ""}`}
+			>
 				<div className="contenedor-balance">
 					<h2>balance</h2>
 					<div className="grupo-filas">
@@ -63,10 +78,16 @@ const Balance = () => {
 					</form>
 				</div>
 			</div>
-			<div className="contenedor-operacion-balance">
+			<div
+				className={`contenedor-operacion-balance ${
+					mostrarModalOperacion ? "oculto" : ""
+				}`}
+			>
 				<div className="operacion-balance-titulo">
 					<h3>operaciones</h3>
-					<button className="btn-operacion">+ Nueva operación</button>
+					<button onClick={handleClickNuevaOperacion} className="btn-operacion">
+						+ Nueva operación
+					</button>
 				</div>
 				<div className="contenedor-img-operacion">
 					<img src={imagenOperacion} alt="operaciones en un ordenador" />
@@ -76,6 +97,42 @@ const Balance = () => {
 					<p>Cambia los filtros o agrega operaciones</p>
 				</div>
 			</div>
+			<section
+				className={`contenedor-modal-operacion ${
+					mostrarModalOperacion ? "" : "oculto"
+				}`}
+			>
+				<div className="contenedor-modal-operacion">
+					<h2>Nueva operación</h2>
+					<form>
+						<label>Descripción</label>
+						<input type="text"></input>
+						<label>Monto</label>
+						<input type="text"></input>
+						<label>Tipo</label>
+						<select>
+							<option>Gasto</option>
+							<option>Ganancia</option>
+						</select>
+						<label>Categoría</label>
+						<select>
+							<option></option>
+							<option></option>
+						</select>
+						<label>Fecha</label>
+						<input type="date"></input>
+					</form>
+					<div className="botones-operacion">
+						<button
+							className="btn-cancelar"
+							onClick={handleClickCancelarOperacion}
+						>
+							Cancelar
+						</button>
+						<button className="btn-agregar">Agregar</button>
+					</div>
+				</div>
+			</section>
 		</section>
 	);
 };
