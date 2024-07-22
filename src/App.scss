@@ -38,6 +38,33 @@ body {
 	display: flex;
 	justify-content: space-between;
 }
+@mixin flex-end {
+	display: flex;
+	justify-content: flex-end;
+}
 @mixin capitalizar-texto {
 	text-transform: capitalize;
+}
+@mixin titulo-h2 {
+	@include capitalizar-texto;
+	color: $color-titulos;
+	padding: 1.125rem;
+	font-size: 2rem;
+}
+@mixin label {
+	padding: 0.3125rem;
+	margin-top: 0.5rem;
+	font-weight: bold;
+	font-size: 1.125rem;
+	color: $color-form;
+}
+@mixin select-input {
+	border: 1px solid #dbdbdb;
+	border-radius: 0.313rem;
+	padding: 0.8rem;
+	margin-bottom: 0.5rem;
+}
+@mixin form-option {
+	background-color: #f8f8f8;
+	color: #333;
 }
