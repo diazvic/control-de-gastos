@@ -10,10 +10,7 @@ section {
 		border-radius: 0.625rem;
 		margin: 1rem;
 		h2 {
-			@include capitalizar-texto;
-			color: $color-titulos;
-			padding: 1.125rem;
-			font-size: 2rem;
+			@include titulo-h2;
 		}
 		.grupo-filas {
 			height: 13rem;
@@ -65,20 +62,13 @@ section {
 		}
 		label {
 			@include capitalizar-texto;
-			padding: 0.3125rem;
-			margin-top: 0.5rem;
-			font-weight: bold;
-			font-size: 1.125rem;
-			color: $color-form;
+			@include label;
 		}
 		select,
 		input {
-			border: 1px solid #dbdbdb;
-			padding: 0.8rem;
-			margin-bottom: 0.5rem;
+			@include select-input;
 			option {
-				background-color: #f8f8f8;
-				color: #333;
+				@include form-option;
 			}
 		}
 	}
