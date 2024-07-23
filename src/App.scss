@@ -68,3 +68,12 @@ body {
 	background-color: #f8f8f8;
 	color: #333;
 }
+@mixin btn-agregar {
+	background-color: $color-boton-agregar;
+	color: #fff;
+	border: none;
+	border-radius: 0.375rem;
+	margin: 0.5rem;
+	padding: 0.7rem;
+	font-size: 1rem;
+}

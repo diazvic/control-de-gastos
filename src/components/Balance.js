@@ -98,11 +98,9 @@ const Balance = () => {
 				</div>
 			</div>
 			<section
-				className={`contenedor-modal-operacion ${
-					mostrarModalOperacion ? "" : "oculto"
-				}`}
+				className={`contenedor-modal ${mostrarModalOperacion ? "" : "oculto"}`}
 			>
-				<div className="contenedor-modal-operacion">
+				<div className="contenedor-modal">
 					<h2>Nueva operación</h2>
 					<form>
 						<label>Descripción</label>
