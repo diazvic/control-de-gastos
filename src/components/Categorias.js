@@ -17,6 +17,17 @@ const Categorias = () => {
 	const [data, setData] = useLocalStorage("controlDeGastos", categorias);
 	console.log(` data recien cargado desde LS: ${data}`);
 	console.log(data);
+	const handleClickEliminarCategoria = (e) => {
+		// Del evento agarro el valor del elemento del dataset para buscar la categoria.
+		const categoriaId = Number(e.target.dataset.categoria);
+		// Creo una copia de data y modifico en el lugar el array de categorias.
+		const newData = {
+			...data,
+			categorias: data.categorias.filter((item) => item.id !== categoriaId),
+		};
+		// Actualizo el estado de data
+		setData(newData);
+	};
 	return (
 		<section>
 			<div className="contenedor-modal">
@@ -34,7 +45,14 @@ const Categorias = () => {
 							<li className="lista-categorias">{categoria.nombre}</li>
 							<div>
 								<button className="btn-categoria">Editar</button>
-								<button className="btn-categoria">Eliminar</button>
+								<button
+									// Aca pongo el id para despues poder encontrar la categoria y eliminarla.
+									data-categoria={categoria.id}
+									className="btn-categoria"
+									onClick={handleClickEliminarCategoria}
+								>
+									Eliminar
+								</button>
 							</div>
 						</div>
 					))}
