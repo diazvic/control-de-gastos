@@ -17,7 +17,6 @@ const Categorias = () => {
 	const [data, setData] = useLocalStorage("controlDeGastos", categorias);
 	console.log(` data recien cargado desde LS: ${data}`);
 	console.log(data);
-
 	return (
 		<section>
 			<div className="contenedor-modal">
@@ -29,12 +28,14 @@ const Categorias = () => {
 						<button className="btn-agregar">Agregar</button>
 					</div>
 				</form>
-				<ul>
+				<ul className="lista-categorias-map">
 					{data.categorias.map((categoria) => (
-						<div key={categoria.id}>
-							<li>{categoria.nombre}</li>
-							<button>Editar</button>
-							<button>Eliminar</button>
+						<div key={categoria.id} className="ctn-categorias-lista">
+							<li className="lista-categorias">{categoria.nombre}</li>
+							<div>
+								<button className="btn-categoria">Editar</button>
+								<button className="btn-categoria">Eliminar</button>
+							</div>
 						</div>
 					))}
 				</ul>
