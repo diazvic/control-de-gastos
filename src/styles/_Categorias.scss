@@ -1,0 +1,25 @@
+@import "_Variables";
+@import "../App.scss";
+
+.titulo-categorias {
+	@include titulo-h2;
+}
+.form-categorias {
+	margin-bottom: 1rem;
+	.categorias-label {
+		@include label;
+	}
+	.ctn-form-categorias {
+		display: flex;
+		.input-categorias {
+			@include select-input;
+			width: 50rem;
+			margin: 0;
+		}
+		.btn-agregar {
+			@include btn-agregar;
+			margin: 0;
+			margin-left: 0.5rem;
+		}
+	}
+}
