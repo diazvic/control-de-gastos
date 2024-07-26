@@ -2,6 +2,7 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 // Hook en https://usehooks.com/uselocalstorage
 import "../styles/_ModalOperacion.scss";
 import "../styles/_Categorias.scss";
+import { useState } from "react";
 const Categorias = () => {
 	const categorias = {
 		categorias: [
@@ -14,9 +15,12 @@ const Categorias = () => {
 		],
 		operaciones: [],
 	};
+
 	const [data, setData] = useLocalStorage("controlDeGastos", categorias);
-	console.log(` data recien cargado desde LS: ${data}`);
-	console.log(data);
+	const [nuevaCategoria, setNuevaCategoria] = useState("");
+	// El valor inicial del id es la longitud del array que esta en el local storage mas uno.
+	const [id, setId] = useState(Number(data.categorias.length + 1));
+
 	const handleClickEliminarCategoria = (e) => {
 		// Del evento agarro el valor del elemento del dataset para buscar la categoria.
 		const categoriaId = Number(e.target.dataset.categoria);
@@ -28,6 +32,30 @@ const Categorias = () => {
 		// Actualizo el estado de data
 		setData(newData);
 	};
+
+	const handleClickAgregarCategoria = (e) => {
+		e.preventDefault();
+		if (nuevaCategoria.trim() !== "") {
+			//condicion para no agregar una categoria vacia
+			const newCategory = { id: id, nombre: nuevaCategoria };
+			// Genero la estructura de lo que tengo guardado en local storage pero con la nueva categoria.
+			const newData = {
+				...data,
+				categorias: [...data.categorias, newCategory],
+			};
+			// Guardo en local storage
+			setData(newData);
+			// Pongo en blanco el input
+			setNuevaCategoria("");
+			// Sumo uno al id para que el siguiente elemento se guarde con el id correlativo.
+			setId(id + 1);
+		}
+	};
+
+	const handleChangeAgregarCategorias = (e) => {
+		setNuevaCategoria(e.target.value);
+	};
+
 	return (
 		<section>
 			<div className="contenedor-modal">
@@ -35,8 +63,21 @@ const Categorias = () => {
 				<form className="form-categorias">
 					<label className="categorias-label">Nombre</label>
 					<div className="ctn-form-categorias">
-						<input type="text" className="input-categorias"></input>
-						<button className="btn-agregar">Agregar</button>
+						<input
+							type="text"
+							className="input-categorias"
+							placeholder="Agregar nueva categoría"
+							//actualizo el nuevo estado con el valor ingresado
+							value={nuevaCategoria}
+							onChange={handleChangeAgregarCategorias}
+						></input>
+						<button
+							className="btn-agregar"
+							type="submit"
+							onClick={handleClickAgregarCategoria}
+						>
+							Agregar
+						</button>
 					</div>
 				</form>
 				<ul className="lista-categorias-map">
