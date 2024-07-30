@@ -1,9 +1,9 @@
 import { useLocalStorage } from "@uidotdev/usehooks";
 // Hook en https://usehooks.com/uselocalstorage
+import { useState } from "react";
 import "../styles/_ModalOperacion.scss";
 import "../styles/_Categorias.scss";
-import { useState } from "react";
-import ModalEditCategory from "../components/ModalEditCategory";
+import ModalEditCategory from "./ModalEditCategory";
 const Categorias = () => {
 	const categorias = {
 		categorias: [
@@ -60,7 +60,9 @@ const Categorias = () => {
 	const handleClickEditCategory = () => {
 		setShowModalEditCategory(!showModalEditCategory);
 	};
-
+	const handleCancelEdit = () => {
+		setShowModalEditCategory(false);
+	};
 	return (
 		<section>
 			<div
@@ -111,7 +113,9 @@ const Categorias = () => {
 					))}
 				</ul>
 			</div>
-			{showModalEditCategory && <ModalEditCategory />}
+			{showModalEditCategory && (
+				<ModalEditCategory handleCancelEdit={handleCancelEdit} />
+			)}
 		</section>
 	);
 };

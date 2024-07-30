@@ -24,19 +24,20 @@
 		input {
 			@include select-input;
 		}
-	}
-	.ctn-button-edit {
-		@include flex-end;
-		padding: 0 0.5rem;
-		button {
-			@include button-style;
-		}
-		.button-cancel {
-			@include button-cancel;
-		}
-		.button-edit {
-			background-color: $color-btn-editar;
-			color: #fff;
+		.ctn-button-edit {
+			@include flex-end;
+			button {
+				@include button-style;
+				margin: 0;
+			}
+			.button-cancel {
+				@include button-cancel;
+				margin-right: 0.5rem;
+			}
+			.button-edit {
+				background-color: $color-btn-editar;
+				color: #fff;
+			}
 		}
 	}
 }
