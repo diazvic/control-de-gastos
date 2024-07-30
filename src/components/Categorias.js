@@ -3,6 +3,7 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import "../styles/_ModalOperacion.scss";
 import "../styles/_Categorias.scss";
 import { useState } from "react";
+import ModalEditCategory from "../components/ModalEditCategory";
 const Categorias = () => {
 	const categorias = {
 		categorias: [
@@ -20,6 +21,7 @@ const Categorias = () => {
 	const [nuevaCategoria, setNuevaCategoria] = useState("");
 	// El valor inicial del id es la longitud del array que esta en el local storage mas uno.
 	const [id, setId] = useState(Number(data.categorias.length + 1));
+	const [showModalEditCategory, setShowModalEditCategory] = useState(false);
 
 	const handleClickEliminarCategoria = (e) => {
 		// Del evento agarro el valor del elemento del dataset para buscar la categoria.
@@ -55,10 +57,15 @@ const Categorias = () => {
 	const handleChangeAgregarCategorias = (e) => {
 		setNuevaCategoria(e.target.value);
 	};
+	const handleClickEditCategory = () => {
+		setShowModalEditCategory(!showModalEditCategory);
+	};
 
 	return (
 		<section>
-			<div className="contenedor-modal">
+			<div
+				className={`contenedor-modal ${showModalEditCategory ? "oculto" : ""}`}
+			>
 				<h2 className="titulo-categorias">Categorías</h2>
 				<form className="form-categorias">
 					<label className="categorias-label">Nombre</label>
@@ -85,7 +92,12 @@ const Categorias = () => {
 						<div key={categoria.id} className="ctn-categorias-lista">
 							<li className="lista-categorias">{categoria.nombre}</li>
 							<div>
-								<button className="btn-categoria">Editar</button>
+								<button
+									className="btn-categoria"
+									onClick={handleClickEditCategory}
+								>
+									Editar
+								</button>
 								<button
 									// Aca pongo el id para despues poder encontrar la categoria y eliminarla.
 									data-categoria={categoria.id}
@@ -99,6 +111,7 @@ const Categorias = () => {
 					))}
 				</ul>
 			</div>
+			{showModalEditCategory && <ModalEditCategory />}
 		</section>
 	);
 };
