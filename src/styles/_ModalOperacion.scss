@@ -26,15 +26,10 @@
 		margin: 1rem;
 		@include flex-end;
 		button {
-			border: none;
-			border-radius: 0.375rem;
-			margin: 0.5rem;
-			padding: 0.7rem;
-			font-size: 1rem;
+			@include button-style;
 		}
 		.btn-cancelar {
-			color: #000;
-			background-color: $color-fondo-seccion;
+			@include button-cancel;
 		}
 		.btn-agregar {
 			background-color: $color-boton-agregar;
