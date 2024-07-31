@@ -35,6 +35,26 @@ const Categorias = () => {
 		setData(newData);
 	};
 
+	// const handleClickEditarCategoria = (e) => {
+	// 	const newData = { ...data };
+	// 	// Del evento agarro el valor del elemento del dataset para buscar la categoria.
+	// 	const categoriaId = Number(e.target.dataset.categoria);
+
+	// 	// Valor del input que quiero como nuevo nombre
+	// 	// const nuevoNombre = LEO EL INPUT DE ALGUNA MANERA
+
+	// 	// Buscar el objeto por id
+	// 	let categoriaAEditar = newData.find((item) => item.id === categoriaId);
+
+	// 	if (categoriaAEditar) {
+	// 		// Cambiar el nombre del objeto encontrado
+	// 		categoriaAEditar.nombre = nuevoNombre;
+	// 	}
+
+	// 	// Actualizo el estado de data
+	// 	setData(newData);
+	// };
+
 	const handleClickAgregarCategoria = (e) => {
 		e.preventDefault();
 		if (nuevaCategoria.trim() !== "") {
@@ -129,6 +149,7 @@ const Categorias = () => {
 					//aca voy a enviar la categoria editada
 					handleEdit={handleEdit}
 					nuevaCategoria={nuevaCategoria}
+					setNuevaCategoria={setNuevaCategoria}
 				/>
 			)}
 		</section>

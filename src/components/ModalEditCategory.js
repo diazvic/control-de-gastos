@@ -3,17 +3,24 @@ const ModalEditCategory = ({
 	handleCancelEdit,
 	handleEdit,
 	nuevaCategoria,
-	SetNuevaCategoria,
+	setNuevaCategoria,
+	data,
+	setData,
 }) => {
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log("funciona");
+		console.log(nuevaCategoria.nombre);
+	};
 	return (
 		<div className="container-edit">
 			<h2>Editar categoría</h2>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<label>Nombre</label>
 				<input
 					type="text"
 					value={nuevaCategoria}
-					onChange={(e) => SetNuevaCategoria(e.target.value)}
+					onChange={(e) => setNuevaCategoria(e.target.value)}
 				></input>
 				<div className="ctn-button-edit">
 					{/* el boton cancelar tiene que volver a categorias */}
