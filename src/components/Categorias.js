@@ -18,6 +18,7 @@ const Categorias = () => {
 	};
 
 	const [data, setData] = useLocalStorage("controlDeGastos", categorias);
+	console.log(data.categorias);
 	const [nuevaCategoria, setNuevaCategoria] = useState("");
 	// El valor inicial del id es la longitud del array que esta en el local storage mas uno.
 	const [id, setId] = useState(Number(data.categorias.length + 1));
