@@ -35,25 +35,10 @@ const Categorias = () => {
 		setData(newData);
 	};
 
-	// const handleClickEditarCategoria = (e) => {
-	// 	const newData = { ...data };
-	// 	// Del evento agarro el valor del elemento del dataset para buscar la categoria.
-	// 	const categoriaId = Number(e.target.dataset.categoria);
-
-	// 	// Valor del input que quiero como nuevo nombre
-	// 	// const nuevoNombre = LEO EL INPUT DE ALGUNA MANERA
-
-	// 	// Buscar el objeto por id
-	// 	let categoriaAEditar = newData.find((item) => item.id === categoriaId);
-
-	// 	if (categoriaAEditar) {
-	// 		// Cambiar el nombre del objeto encontrado
-	// 		categoriaAEditar.nombre = nuevoNombre;
-	// 	}
-
-	// 	// Actualizo el estado de data
-	// 	setData(newData);
-	// };
+	const handleClickEditarCategoria = (categoria, e) => {
+		setShowModalEditCategory(!showModalEditCategory);
+		setNuevaCategoria(categoria.nombre);
+	};
 
 	const handleClickAgregarCategoria = (e) => {
 		e.preventDefault();
@@ -82,6 +67,10 @@ const Categorias = () => {
 		//Traigo el valor de categoria con el input de ModalEditCategory
 		setNuevaCategoria(categoria.nombre);
 		console.log(`la categoria que viene para editar ${categoria.nombre}`);
+		const newData = { ...data };
+		console.log(newData.categorias);
+
+		// const categoriaId = Number(e.target.dataset.categoria);
 	};
 	const handleCancelEdit = () => {
 		setShowModalEditCategory(false);
@@ -89,9 +78,6 @@ const Categorias = () => {
 		setNuevaCategoria("");
 	};
 
-	const handleEdit = (e) => {
-		e.preventDefault();
-	};
 	return (
 		<section>
 			<div
@@ -124,9 +110,10 @@ const Categorias = () => {
 							<li className="lista-categorias">{categoria.nombre}</li>
 							<div>
 								<button
+									// data-categoria={categoria.id}
 									className="btn-categoria"
 									//Le paso como parametro categoria
-									onClick={() => handleClickEditCategory(categoria)}
+									onClick={() => handleClickEditarCategoria(categoria)}
 								>
 									Editar
 								</button>
@@ -147,7 +134,7 @@ const Categorias = () => {
 				<ModalEditCategory
 					handleCancelEdit={handleCancelEdit}
 					//aca voy a enviar la categoria editada
-					handleEdit={handleEdit}
+					// handleEdit={handleEdit}
 					nuevaCategoria={nuevaCategoria}
 					setNuevaCategoria={setNuevaCategoria}
 				/>

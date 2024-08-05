@@ -11,6 +11,9 @@ const ModalEditCategory = ({
 		e.preventDefault();
 		console.log("funciona");
 		console.log(nuevaCategoria.nombre);
+
+		//cuando apreto enviar tiene q volver a mi lista de
+		//categorias editadas con el valor editado
 	};
 	return (
 		<div className="container-edit">
@@ -31,7 +34,7 @@ const ModalEditCategory = ({
 					>
 						Cancelar
 					</button>
-					<button className="button-edit" type="submit" onSubmit={handleEdit}>
+					<button className="button-edit" type="submit">
 						Editar
 					</button>
 				</div>
