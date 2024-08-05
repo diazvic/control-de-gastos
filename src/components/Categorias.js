@@ -35,9 +35,9 @@ const Categorias = () => {
 		setData(newData);
 	};
 
-	const handleClickEditarCategoria = (categoria, e) => {
+	const handleClickEditarCategoria = (categoria, e, nuevaCatEditada) => {
+		setNuevaCategoria(categoria);
 		setShowModalEditCategory(!showModalEditCategory);
-		setNuevaCategoria(categoria.nombre);
 	};
 
 	const handleClickAgregarCategoria = (e) => {
@@ -61,21 +61,6 @@ const Categorias = () => {
 
 	const handleChangeAgregarCategorias = (e) => {
 		setNuevaCategoria(e.target.value);
-	};
-	const handleClickEditCategory = (categoria) => {
-		setShowModalEditCategory(!showModalEditCategory);
-		//Traigo el valor de categoria con el input de ModalEditCategory
-		setNuevaCategoria(categoria.nombre);
-		console.log(`la categoria que viene para editar ${categoria.nombre}`);
-		const newData = { ...data };
-		console.log(newData.categorias);
-
-		// const categoriaId = Number(e.target.dataset.categoria);
-	};
-	const handleCancelEdit = () => {
-		setShowModalEditCategory(false);
-		//Pongo en blanco el input
-		setNuevaCategoria("");
 	};
 
 	return (
@@ -132,11 +117,10 @@ const Categorias = () => {
 			</div>
 			{showModalEditCategory && (
 				<ModalEditCategory
-					handleCancelEdit={handleCancelEdit}
-					//aca voy a enviar la categoria editada
-					// handleEdit={handleEdit}
 					nuevaCategoria={nuevaCategoria}
-					setNuevaCategoria={setNuevaCategoria}
+					setShowModalEditCategory={setShowModalEditCategory}
+					data={data}
+					setData={setData}
 				/>
 			)}
 		</section>
