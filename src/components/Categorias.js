@@ -35,6 +35,11 @@ const Categorias = () => {
 		setData(newData);
 	};
 
+	const handleClickEditarCategoria = (categoria, e, nuevaCatEditada) => {
+		setNuevaCategoria(categoria);
+		setShowModalEditCategory(!showModalEditCategory);
+	};
+
 	const handleClickAgregarCategoria = (e) => {
 		e.preventDefault();
 		if (nuevaCategoria.trim() !== "") {
@@ -57,21 +62,7 @@ const Categorias = () => {
 	const handleChangeAgregarCategorias = (e) => {
 		setNuevaCategoria(e.target.value);
 	};
-	const handleClickEditCategory = (categoria) => {
-		setShowModalEditCategory(!showModalEditCategory);
-		//Traigo el valor de categoria con el input de ModalEditCategory
-		setNuevaCategoria(categoria.nombre);
-		console.log(`la categoria que viene para editar ${categoria.nombre}`);
-	};
-	const handleCancelEdit = () => {
-		setShowModalEditCategory(false);
-		//Pongo en blanco el input
-		setNuevaCategoria("");
-	};
 
-	const handleEdit = (e) => {
-		e.preventDefault();
-	};
 	return (
 		<section>
 			<div
@@ -104,9 +95,10 @@ const Categorias = () => {
 							<li className="lista-categorias">{categoria.nombre}</li>
 							<div>
 								<button
+									// data-categoria={categoria.id}
 									className="btn-categoria"
 									//Le paso como parametro categoria
-									onClick={() => handleClickEditCategory(categoria)}
+									onClick={() => handleClickEditarCategoria(categoria)}
 								>
 									Editar
 								</button>
@@ -125,10 +117,10 @@ const Categorias = () => {
 			</div>
 			{showModalEditCategory && (
 				<ModalEditCategory
-					handleCancelEdit={handleCancelEdit}
-					//aca voy a enviar la categoria editada
-					handleEdit={handleEdit}
 					nuevaCategoria={nuevaCategoria}
+					setShowModalEditCategory={setShowModalEditCategory}
+					data={data}
+					setData={setData}
 				/>
 			)}
 		</section>
