@@ -6,7 +6,14 @@ import { DataContext } from "../context/DataContext";
 const Balance = () => {
 	const [mostrarFiltros, setMostrarFiltros] = useState(true);
 	const [mostrarModalOperacion, setMostrarModalOperacion] = useState(false);
-	const { data } = useContext(DataContext);
+	const { data, setData } = useContext(DataContext);
+	const [valuesForm, setValuesForm] = useState({
+		descripcion: "",
+		monto: "",
+		tipo: "",
+		categoria: "",
+		fecha: "",
+	});
 	//funcion para mostrar modal de filtros y a la vez ocultarlos
 	const toggleFiltros = () => {
 		setMostrarFiltros(!mostrarFiltros);
@@ -19,6 +26,23 @@ const Balance = () => {
 	//funcion clic para cambiar el estado y volver a la seccion balance
 	const handleClickCancelarOperacion = () => {
 		setMostrarModalOperacion(false);
+	};
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setValuesForm({
+			...valuesForm,
+			[name]: value,
+		});
+	};
+	const handleSubmitNuevaOperacion = (e) => {
+		e.preventDefault();
+		console.log("envio de form");
+		console.log(valuesForm);
+		const nuevasOperaciones = [...data.operaciones, valuesForm];
+		setData({
+			...data,
+			operaciones: nuevasOperaciones,
+		});
 	};
 	return (
 		<section>
@@ -102,18 +126,32 @@ const Balance = () => {
 			>
 				<div className="contenedor-modal">
 					<h2>Nueva operación</h2>
-					<form>
+					<form onSubmit={handleSubmitNuevaOperacion}>
 						<label>Descripción</label>
-						<input type="text"></input>
+						<input
+							type="text"
+							name="descripcion"
+							value={valuesForm.descripcion}
+							onChange={handleChange}
+						></input>
 						<label>Monto</label>
-						<input type="text"></input>
+						<input
+							type="text"
+							name="monto"
+							value={valuesForm.monto}
+							onChange={handleChange}
+						></input>
 						<label>Tipo</label>
-						<select>
+						<select name="tipo" value={valuesForm.tipo} onChange={handleChange}>
 							<option>Gasto</option>
 							<option>Ganancia</option>
 						</select>
 						<label>Categoría</label>
-						<select>
+						<select
+							name="categoria"
+							value={valuesForm.categoria}
+							onChange={handleChange}
+						>
 							{data.categorias.map((categoria) => (
 								<option key={categoria.id} value={categoria.nombre}>
 									{categoria.nombre}
@@ -121,7 +159,12 @@ const Balance = () => {
 							))}
 						</select>
 						<label>Fecha</label>
-						<input type="date"></input>
+						<input
+							type="date"
+							name="fecha"
+							value={valuesForm.fecha}
+							onChange={handleChange}
+						></input>
 					</form>
 					<div className="botones-operacion">
 						<button
@@ -130,7 +173,13 @@ const Balance = () => {
 						>
 							Cancelar
 						</button>
-						<button className="btn-agregar">Agregar</button>
+						<button
+							className="btn-agregar"
+							type="submit"
+							onClick={handleSubmitNuevaOperacion}
+						>
+							Agregar
+						</button>
 					</div>
 				</div>
 			</section>
