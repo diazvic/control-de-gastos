@@ -1,67 +1,22 @@
 import { useLocalStorage } from "@uidotdev/usehooks";
-// Hook en https://usehooks.com/uselocalstorage
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "../styles/_ModalOperacion.scss";
 import "../styles/_Categorias.scss";
 import ModalEditCategory from "./ModalEditCategory";
+import { DataContext } from "../context/DataContext";
 const Categorias = () => {
-	const categorias = {
-		categorias: [
-			{ id: 1, nombre: "comidas" },
-			{ id: 2, nombre: "servicios" },
-			{ id: 3, nombre: "salidas" },
-			{ id: 4, nombre: "educación" },
-			{ id: 5, nombre: "transporte" },
-			{ id: 6, nombre: "trabajo" },
-		],
-		operaciones: [],
-	};
-
-	const [data, setData] = useLocalStorage("controlDeGastos", categorias);
-	const [nuevaCategoria, setNuevaCategoria] = useState("");
-	// El valor inicial del id es la longitud del array que esta en el local storage mas uno.
-	const [id, setId] = useState(Number(data.categorias.length + 1));
-	const [showModalEditCategory, setShowModalEditCategory] = useState(false);
-
-	const handleClickEliminarCategoria = (e) => {
-		// Del evento agarro el valor del elemento del dataset para buscar la categoria.
-		const categoriaId = Number(e.target.dataset.categoria);
-		// Creo una copia de data y modifico en el lugar el array de categorias.
-		const newData = {
-			...data,
-			categorias: data.categorias.filter((item) => item.id !== categoriaId),
-		};
-		// Actualizo el estado de data
-		setData(newData);
-	};
-
-	const handleClickEditarCategoria = (categoria, e, nuevaCatEditada) => {
-		setNuevaCategoria(categoria);
-		setShowModalEditCategory(!showModalEditCategory);
-	};
-
-	const handleClickAgregarCategoria = (e) => {
-		e.preventDefault();
-		if (nuevaCategoria.trim() !== "") {
-			//condicion para no agregar una categoria vacia
-			const newCategory = { id: id, nombre: nuevaCategoria };
-			// Genero la estructura de lo que tengo guardado en local storage pero con la nueva categoria.
-			const newData = {
-				...data,
-				categorias: [...data.categorias, newCategory],
-			};
-			// Guardo en local storage
-			setData(newData);
-			// Pongo en blanco el input
-			setNuevaCategoria("");
-			// Sumo uno al id para que el siguiente elemento se guarde con el id correlativo.
-			setId(id + 1);
-		}
-	};
-
-	const handleChangeAgregarCategorias = (e) => {
-		setNuevaCategoria(e.target.value);
-	};
+	const {
+		data,
+		nuevaCategoria,
+		setNuevaCategoria,
+		id,
+		showModalEditCategory,
+		setShowModalEditCategory,
+		handleClickEliminarCategoria,
+		handleClickEditarCategoria,
+		handleClickAgregarCategoria,
+		handleChangeAgregarCategorias,
+	} = useContext(DataContext);
 
 	return (
 		<section>
@@ -115,14 +70,7 @@ const Categorias = () => {
 					))}
 				</ul>
 			</div>
-			{showModalEditCategory && (
-				<ModalEditCategory
-					nuevaCategoria={nuevaCategoria}
-					setShowModalEditCategory={setShowModalEditCategory}
-					data={data}
-					setData={setData}
-				/>
-			)}
+			{showModalEditCategory && <ModalEditCategory />}
 		</section>
 	);
 };

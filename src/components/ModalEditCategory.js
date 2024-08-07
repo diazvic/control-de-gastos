@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import "../styles/_ModalEditCategory.scss";
-const ModalEditCategory = ({
-	nuevaCategoria,
-	data,
-	setData,
-	setShowModalEditCategory,
-}) => {
+import { DataContext } from "../context/DataContext";
+const ModalEditCategory = () => {
+	const { nuevaCategoria, data, setData, setShowModalEditCategory } =
+		useContext(DataContext);
 	const [nuevoNombreCategoria, setNuevoNombreCategoria] = useState(
 		nuevaCategoria.nombre
 	);
-
+	useEffect(() => {
+		if (nuevaCategoria) {
+			setNuevoNombreCategoria(nuevaCategoria.nombre);
+		}
+	}, [nuevaCategoria]);
 	const handleCancelEdit = () => {
 		setShowModalEditCategory(false);
 	};
