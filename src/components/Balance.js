@@ -1,12 +1,12 @@
 import "../styles/_Balance.scss";
 import "../styles/_ModalOperacion.scss";
 import imagenOperacion from "../imagenes/imagenOperacion.svg";
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import { DataContext } from "../context/DataContext";
 const Balance = () => {
 	const [mostrarFiltros, setMostrarFiltros] = useState(true);
 	const [mostrarModalOperacion, setMostrarModalOperacion] = useState(false);
-
+	const { data } = useContext(DataContext);
 	//funcion para mostrar modal de filtros y a la vez ocultarlos
 	const toggleFiltros = () => {
 		setMostrarFiltros(!mostrarFiltros);
@@ -114,8 +114,11 @@ const Balance = () => {
 						</select>
 						<label>Categoría</label>
 						<select>
-							<option></option>
-							<option></option>
+							{data.categorias.map((categoria) => (
+								<option key={categoria.id} value={categoria.nombre}>
+									{categoria.nombre}
+								</option>
+							))}
 						</select>
 						<label>Fecha</label>
 						<input type="date"></input>

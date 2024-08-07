@@ -1,5 +1,4 @@
-import { useLocalStorage } from "@uidotdev/usehooks";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import "../styles/_ModalOperacion.scss";
 import "../styles/_Categorias.scss";
 import ModalEditCategory from "./ModalEditCategory";
@@ -8,10 +7,7 @@ const Categorias = () => {
 	const {
 		data,
 		nuevaCategoria,
-		setNuevaCategoria,
-		id,
 		showModalEditCategory,
-		setShowModalEditCategory,
 		handleClickEliminarCategoria,
 		handleClickEditarCategoria,
 		handleClickAgregarCategoria,
