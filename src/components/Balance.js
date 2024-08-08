@@ -3,9 +3,12 @@ import "../styles/_ModalOperacion.scss";
 import imagenOperacion from "../imagenes/imagenOperacion.svg";
 import { useState, useContext } from "react";
 import { DataContext } from "../context/DataContext";
+import ModalListaOperaciones from "./ModalListaOperaciones";
 const Balance = () => {
 	const [mostrarFiltros, setMostrarFiltros] = useState(true);
 	const [mostrarModalOperacion, setMostrarModalOperacion] = useState(false);
+	const [mostrarBotonNuevaOperacion, setMostrarBotonNuevaOperacion] =
+		useState(true);
 	const { data, setData } = useContext(DataContext);
 	const [valuesForm, setValuesForm] = useState({
 		descripcion: "",
@@ -22,10 +25,12 @@ const Balance = () => {
 	const handleClickNuevaOperacion = () => {
 		setMostrarModalOperacion(!mostrarModalOperacion);
 		setMostrarFiltros(!mostrarFiltros);
+		setMostrarBotonNuevaOperacion(false);
 	};
 	//funcion clic para cambiar el estado y volver a la seccion balance
 	const handleClickCancelarOperacion = () => {
 		setMostrarModalOperacion(false);
+		setMostrarBotonNuevaOperacion(true);
 	};
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -43,6 +48,7 @@ const Balance = () => {
 			...data,
 			operaciones: nuevasOperaciones,
 		});
+		handleClickCancelarOperacion();
 	};
 	return (
 		<section>
@@ -109,13 +115,19 @@ const Balance = () => {
 			>
 				<div className="operacion-balance-titulo">
 					<h3>operaciones</h3>
-					<button onClick={handleClickNuevaOperacion} className="btn-operacion">
-						+ Nueva operación
-					</button>
+					{mostrarBotonNuevaOperacion && (
+						<button
+							onClick={handleClickNuevaOperacion}
+							className="btn-operacion"
+						>
+							+ Nueva operación
+						</button>
+					)}
 				</div>
 				<div className="contenedor-img-operacion">
 					<img src={imagenOperacion} alt="operaciones en un ordenador" />
 				</div>
+				<ModalListaOperaciones />
 				<div className="parrafo-operaciones">
 					<h4>Sin resultados</h4>
 					<p>Cambia los filtros o agrega operaciones</p>
