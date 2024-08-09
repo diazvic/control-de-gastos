@@ -3,24 +3,21 @@
 .card-opn {
 	border: 1px solid black;
 	width: 100%;
-	display: flex;
-	flex-direction: column;
+	@include flex-column;
 }
 .header {
-	display: flex;
+	@include flex-space-between;
 	padding: 5px;
-	justify-content: space-between;
 }
 .title-opn {
 	color: $color-titulos;
 	font-weight: bold;
 }
 .row {
-	display: flex;
+	@include flex-space-between;
 	align-items: center;
 	padding: 10px;
 	border-bottom: 1px solid #ddd;
-	justify-content: space-between;
 }
 .flex-item {
 	flex: 1;
