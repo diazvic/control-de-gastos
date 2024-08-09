@@ -1,7 +1,7 @@
 import "../styles/_Balance.scss";
 import "../styles/_ModalOperacion.scss";
 import imagenOperacion from "../imagenes/imagenOperacion.svg";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../context/DataContext";
 import ModalListaOperaciones from "./ModalListaOperaciones";
 const Balance = () => {
@@ -17,6 +17,13 @@ const Balance = () => {
 		categoria: "",
 		fecha: "",
 	});
+	const [mostrarImagenOperacion, setMostrarImagenOperacion] = useState(
+		data.operaciones.length === 0
+	);
+
+	useEffect(() => {
+		setMostrarImagenOperacion(data.operaciones.length === 0);
+	}, [data.operaciones]);
 	//funcion para mostrar modal de filtros y a la vez ocultarlos
 	const toggleFiltros = () => {
 		setMostrarFiltros(!mostrarFiltros);
@@ -49,6 +56,7 @@ const Balance = () => {
 			operaciones: nuevasOperaciones,
 		});
 		handleClickCancelarOperacion();
+		setMostrarImagenOperacion(false);
 	};
 	return (
 		<section>
@@ -124,14 +132,19 @@ const Balance = () => {
 						</button>
 					)}
 				</div>
-				<div className="contenedor-img-operacion">
-					<img src={imagenOperacion} alt="operaciones en un ordenador" />
-				</div>
-				<ModalListaOperaciones />
-				<div className="parrafo-operaciones">
-					<h4>Sin resultados</h4>
-					<p>Cambia los filtros o agrega operaciones</p>
-				</div>
+				{mostrarImagenOperacion && (
+					<div className="contenedor-img-operacion">
+						<img src={imagenOperacion} alt="operaciones en un ordenador" />
+					</div>
+				)}
+				{data.operaciones.length > 0 ? (
+					<ModalListaOperaciones />
+				) : (
+					<div className="parrafo-operaciones">
+						<h4>Sin resultados</h4>
+						<p>Cambia los filtros o agrega operaciones</p>
+					</div>
+				)}
 			</div>
 			<section
 				className={`contenedor-modal ${mostrarModalOperacion ? "" : "oculto"}`}
