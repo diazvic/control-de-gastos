@@ -11,6 +11,10 @@
 	padding: 5px;
 	justify-content: space-between;
 }
+.title-opn {
+	color: $color-titulos;
+	font-weight: bold;
+}
 .row {
 	display: flex;
 	align-items: center;
@@ -21,6 +25,22 @@
 .flex-item {
 	flex: 1;
 	text-align: left;
+}
+.span-description-opn {
+	color: $color-titulos;
+	font-weight: bold;
+}
+.lista-categorias {
+	list-style: none;
+	color: $color-lista-categorias;
+	background-color: $background-color-lista-categorias;
+}
+.span-date-opn {
+	font-size: 0.9rem;
+	color: $color-date-opn;
+}
+.span-monto {
+	font-size: 0.9rem;
 }
 .btn-opcn {
 	flex-shrink: 0;
@@ -34,8 +54,10 @@
 		background-color: transparent;
 	}
 }
-.lista-categorias {
-	list-style: none;
-	color: $color-lista-categorias;
-	background-color: $background-color-lista-categorias;
+.title-opn,
+.span-description-opn,
+.span-date-opn,
+.span-monto {
+	flex: 1;
+	text-align: left;
 }

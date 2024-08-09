@@ -8,26 +8,28 @@ const ModalListaOperaciones = () => {
 	return (
 		<div className="card-opn">
 			<div className="header">
-				<div>Descripción</div>
-				<div>Categoría</div>
-				<div>Fecha</div>
-				<div>Monto</div>
-				<div>Acciones</div>
+				<div className="title-opn">Descripción</div>
+				<div className="title-opn">Categoría</div>
+				<div className="title-opn">Fecha</div>
+				<div className="title-opn">Monto</div>
+				<div className="title-opn">Acciones</div>
 			</div>
 			{data.operaciones.length > 0 ? (
 				data.operaciones.map((operacion, index) => (
 					<div key={index} className="row">
 						<div className="flex-item">
-							<p>{operacion.descripcion}</p>
+							<span className="span-description-opn">
+								{operacion.descripcion}
+							</span>
 						</div>
 						<div className="flex-item">
-							<p className="lista-categorias">{operacion.categoria}</p>
+							<span className="lista-categorias">{operacion.categoria}</span>
 						</div>
 						<div className="flex-item">
-							<p>{operacion.fecha}</p>
+							<span className="span-date-opn">{operacion.fecha}</span>
 						</div>
-						<div className="flex-item">
-							<p>${operacion.monto}</p>
+						<div className="flex-item span-monto">
+							<span>${operacion.monto}</span>
 						</div>
 						<div className="btn-opcn">
 							<div className="box-btn-opn">
@@ -38,7 +40,7 @@ const ModalListaOperaciones = () => {
 					</div>
 				))
 			) : (
-				<p>No hay operaciones disponibles.</p>
+				<span>No hay operaciones disponibles.</span>
 			)}
 		</div>
 	);
