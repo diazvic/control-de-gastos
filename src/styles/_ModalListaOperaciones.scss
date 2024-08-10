@@ -1,7 +1,6 @@
 @import "_Variables";
 @import "../App.scss";
 .card-opn {
-	border: 1px solid black;
 	width: 100%;
 	@include flex-column;
 }
@@ -17,7 +16,7 @@
 	@include flex-space-between;
 	align-items: center;
 	padding: 10px;
-	border-bottom: 1px solid #ddd;
+	// border-bottom: 1px solid #ddd;
 }
 .flex-item {
 	flex: 1;
@@ -57,4 +56,10 @@
 .span-monto {
 	flex: 1;
 	text-align: left;
+}
+.monto-ganancia {
+	color: $color-ganancia;
+}
+.monto-gasto {
+	color: $color-gasto;
 }
