@@ -29,7 +29,16 @@ const ModalListaOperaciones = () => {
 							<span className="span-date-opn">{operacion.fecha}</span>
 						</div>
 						<div className="flex-item span-monto">
-							<span>${operacion.monto}</span>
+							<span
+								className={
+									operacion.tipo === "Ganancia"
+										? "monto-ganancia"
+										: "monto-gasto"
+								}
+							>
+								{operacion.tipo === "Ganancia" ? "+$" : "-$"}
+								{operacion.monto}
+							</span>
 						</div>
 						<div className="btn-opcn">
 							<div className="box-btn-opn">
