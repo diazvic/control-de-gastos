@@ -60,7 +60,6 @@ const DataProvider = ({ children }) => {
 	const handleChangeAgregarCategorias = (e) => {
 		setNuevaCategoria(e.target.value);
 	};
-
 	return (
 		<DataContext.Provider
 			value={{
