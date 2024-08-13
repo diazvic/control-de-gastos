@@ -4,6 +4,7 @@ import imagenOperacion from "../imagenes/imagenOperacion.svg";
 import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../context/DataContext";
 import ModalListaOperaciones from "./ModalListaOperaciones";
+import { v4 as uuidv4 } from "uuid";
 const Balance = () => {
 	const [mostrarFiltros, setMostrarFiltros] = useState(true);
 	const [mostrarModalOperacion, setMostrarModalOperacion] = useState(false);
@@ -49,14 +50,27 @@ const Balance = () => {
 	const handleSubmitNuevaOperacion = (e) => {
 		e.preventDefault();
 		console.log("envio de form");
-		console.log(valuesForm);
-		const nuevasOperaciones = [...data.operaciones, valuesForm];
+
+		const nuevaOperacionId = {
+			...valuesForm,
+			id: uuidv4(),
+		};
+		console.log(nuevaOperacionId);
+		const nuevasOperaciones = [...data.operaciones, nuevaOperacionId];
 		setData({
 			...data,
 			operaciones: nuevasOperaciones,
 		});
 		handleClickCancelarOperacion();
 		setMostrarImagenOperacion(false);
+		//Reseteo el Formulario cuando elimino una operacion
+		setValuesForm({
+			descripcion: "",
+			monto: "",
+			tipo: "",
+			categoria: "",
+			fecha: "",
+		});
 	};
 	return (
 		<section>
