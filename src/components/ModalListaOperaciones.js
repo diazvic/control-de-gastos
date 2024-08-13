@@ -2,9 +2,19 @@ import "../styles/_ModalListaOperaciones.scss";
 import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
 const ModalListaOperaciones = () => {
-	const { data } = useContext(DataContext);
+	const { data, setData } = useContext(DataContext);
 
-	console.log(data.operaciones);
+	const handleClickEliminarOperacion = (id) => {
+		console.log(`el valor del id es ${id}`);
+		// Creo una copia de data y modifico en el lugar el array de operaciones
+		const newDataOperaciones = {
+			...data,
+			operaciones: data.operaciones.filter((item) => item.id !== id),
+		};
+		// Actualizo el estado de data
+		setData(newDataOperaciones);
+	};
+
 	return (
 		<div className="card-opn">
 			<div className="header">
@@ -15,8 +25,8 @@ const ModalListaOperaciones = () => {
 				<div className="title-opn">Acciones</div>
 			</div>
 			{data.operaciones.length > 0 ? (
-				data.operaciones.map((operacion, index) => (
-					<div key={index} className="row">
+				data.operaciones.map((operacion) => (
+					<div key={operacion.id} className="row">
 						<div className="flex-item">
 							<span className="span-description-opn">
 								{operacion.descripcion}
@@ -43,7 +53,11 @@ const ModalListaOperaciones = () => {
 						<div className="btn-opcn">
 							<div className="box-btn-opn">
 								<button>Editar</button>
-								<button>Eliminar</button>
+								<button
+									onClick={() => handleClickEliminarOperacion(operacion.id)}
+								>
+									Eliminar
+								</button>
 							</div>
 						</div>
 					</div>
