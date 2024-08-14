@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 const Balance = () => {
 	const [mostrarFiltros, setMostrarFiltros] = useState(true);
 	const [mostrarModalOperacion, setMostrarModalOperacion] = useState(false);
+	const [modoEdicion, setModoEdicion] = useState(false);
+	const [operacionAEditar, setOperacionAEditar] = useState(null);
 	const [mostrarBotonNuevaOperacion, setMostrarBotonNuevaOperacion] =
 		useState(true);
 	const { data, setData } = useContext(DataContext);
@@ -30,10 +32,26 @@ const Balance = () => {
 		setMostrarFiltros(!mostrarFiltros);
 	};
 	//funcion mostrar modal de nueva operacion
-	const handleClickNuevaOperacion = () => {
-		setMostrarModalOperacion(!mostrarModalOperacion);
-		setMostrarFiltros(!mostrarFiltros);
+	const handleClickNuevaOperacion = (operacion = null) => {
+		setMostrarModalOperacion(true);
+		setMostrarFiltros(false);
 		setMostrarBotonNuevaOperacion(false);
+
+		if (operacion) {
+			setModoEdicion(true);
+			setOperacionAEditar(operacion);
+			setValuesForm(operacion);
+		} else {
+			setModoEdicion(false);
+			setOperacionAEditar(null);
+			setValuesForm({
+				descripcion: "",
+				monto: "",
+				tipo: "",
+				categoria: "",
+				fecha: "",
+			});
+		}
 	};
 	//funcion clic para cambiar el estado y volver a la seccion balance
 	const handleClickCancelarOperacion = () => {
@@ -51,16 +69,30 @@ const Balance = () => {
 		e.preventDefault();
 		console.log("envio de form");
 
-		const nuevaOperacionId = {
-			...valuesForm,
-			id: uuidv4(),
-		};
-		console.log(nuevaOperacionId);
-		const nuevasOperaciones = [...data.operaciones, nuevaOperacionId];
-		setData({
-			...data,
-			operaciones: nuevasOperaciones,
-		});
+		if (modoEdicion) {
+			const operacionesActualizadas = data.operaciones.map((operacion) =>
+				operacion.id === operacionAEditar.id
+					? { ...valuesForm, id: operacion.id }
+					: operacion
+			);
+
+			setData({
+				...data,
+				operaciones: operacionesActualizadas,
+			});
+		} else {
+			const nuevaOperacionId = {
+				...valuesForm,
+				id: uuidv4(),
+			};
+			console.log(nuevaOperacionId);
+			const nuevasOperaciones = [...data.operaciones, nuevaOperacionId];
+			setData({
+				...data,
+				operaciones: nuevasOperaciones,
+			});
+		}
+
 		handleClickCancelarOperacion();
 		setMostrarImagenOperacion(false);
 		//Reseteo el Formulario cuando elimino una operacion
@@ -139,7 +171,7 @@ const Balance = () => {
 					<h3>operaciones</h3>
 					{mostrarBotonNuevaOperacion && (
 						<button
-							onClick={handleClickNuevaOperacion}
+							onClick={() => handleClickNuevaOperacion()}
 							className="btn-operacion"
 						>
 							+ Nueva operación
@@ -152,7 +184,9 @@ const Balance = () => {
 					</div>
 				)}
 				{data.operaciones.length > 0 ? (
-					<ModalListaOperaciones />
+					<ModalListaOperaciones
+						handleClickNuevaOperacion={handleClickNuevaOperacion}
+					/>
 				) : (
 					<div className="parrafo-operaciones">
 						<h4>Sin resultados</h4>
@@ -164,7 +198,7 @@ const Balance = () => {
 				className={`contenedor-modal ${mostrarModalOperacion ? "" : "oculto"}`}
 			>
 				<div className="contenedor-modal">
-					<h2>Nueva operación</h2>
+					<h2>{modoEdicion ? "Editar Operación" : "Nueva operación"}</h2>
 					<form onSubmit={handleSubmitNuevaOperacion}>
 						<label>Descripción</label>
 						<input
@@ -217,7 +251,7 @@ const Balance = () => {
 							type="submit"
 							onClick={handleSubmitNuevaOperacion}
 						>
-							Agregar
+							{modoEdicion ? "Guardar cambios" : "Agregar"}
 						</button>
 					</div>
 				</div>
