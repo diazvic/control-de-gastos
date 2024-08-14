@@ -1,7 +1,7 @@
 import "../styles/_ModalListaOperaciones.scss";
 import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
-const ModalListaOperaciones = () => {
+const ModalListaOperaciones = ({ handleClickNuevaOperacion }) => {
 	const { data, setData } = useContext(DataContext);
 
 	const handleClickEliminarOperacion = (id) => {
@@ -14,7 +14,9 @@ const ModalListaOperaciones = () => {
 		// Actualizo el estado de data
 		setData(newDataOperaciones);
 	};
-
+	const handleClickEditarOperacion = (operacion) => {
+		handleClickNuevaOperacion(operacion);
+	};
 	return (
 		<div className="card-opn">
 			<div className="header">
@@ -52,7 +54,9 @@ const ModalListaOperaciones = () => {
 						</div>
 						<div className="btn-opcn">
 							<div className="box-btn-opn">
-								<button>Editar</button>
+								<button onClick={() => handleClickEditarOperacion(operacion)}>
+									Editar
+								</button>
 								<button
 									onClick={() => handleClickEliminarOperacion(operacion.id)}
 								>
