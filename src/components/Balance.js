@@ -209,7 +209,7 @@ const Balance = () => {
 						></input>
 						<label>Monto</label>
 						<input
-							type="text"
+							type="number"
 							name="monto"
 							value={valuesForm.monto}
 							onChange={handleChange}
