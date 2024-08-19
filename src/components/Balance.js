@@ -23,7 +23,8 @@ const Balance = () => {
 	const [mostrarImagenOperacion, setMostrarImagenOperacion] = useState(
 		data.operaciones.length === 0
 	);
-
+	const [filtroTipo, setFiltroTipo] = useState("");
+	const [filtroCategoria, setFiltroCategoria] = useState("");
 	useEffect(() => {
 		setMostrarImagenOperacion(data.operaciones.length === 0);
 	}, [data.operaciones]);
@@ -41,6 +42,24 @@ const Balance = () => {
 	const totalBalance = () => {
 		return sumaGanancia() - sumaGastos();
 	};
+	//filtrar operaciones por tipo y categoria
+	const operacionesFiltradas = data.operaciones.filter((operacion) => {
+		const tipoCoincide = filtroTipo === "" || operacion.tipo === filtroTipo;
+		const categoriaCoincide =
+			filtroCategoria === "" || operacion.categoria === filtroCategoria;
+		return tipoCoincide && categoriaCoincide;
+	});
+
+	const handleSelectFilterType = (e) => {
+		console.log("test");
+		setFiltroTipo(e.target.value);
+	};
+
+	const handleSelectFilterCategory = (e) => {
+		console.log("test category");
+		setFiltroCategoria(e.target.value);
+	};
+
 	//funcion para mostrar modal de filtros y a la vez ocultarlos
 	const toggleFiltros = () => {
 		setMostrarFiltros(!mostrarFiltros);
@@ -151,16 +170,17 @@ const Balance = () => {
 						className={`formulario-filtros ${mostrarFiltros ? "" : "oculto"}`}
 					>
 						<label>tipo</label>
-						<select>
-							<option>Todos</option>
-							<option>Gasto</option>
-							<option>Ganancia</option>
+						<select onChange={handleSelectFilterType}>
+							<option value="">Todos</option>
+							<option value="Gasto">Gasto</option>
+							<option value="Ganancia">Ganancia</option>
 						</select>
 						<label>categoria</label>
-						<select>
-							<option>Todos</option>
-							<option>Gasto</option>
-							<option>Ganancia</option>
+						<select onChange={handleSelectFilterCategory}>
+							<option value="">Todos</option>
+							{data.categorias.map((option) => (
+								<option key={option.id}>{option.nombre}</option>
+							))}
 						</select>
 						<label>desde</label>
 						<input type="date"></input>
@@ -199,6 +219,7 @@ const Balance = () => {
 				)}
 				{data.operaciones.length > 0 ? (
 					<ModalListaOperaciones
+						operaciones={operacionesFiltradas}
 						handleClickNuevaOperacion={handleClickNuevaOperacion}
 					/>
 				) : (

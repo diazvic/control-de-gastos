@@ -1,7 +1,7 @@
 import "../styles/_ModalListaOperaciones.scss";
 import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
-const ModalListaOperaciones = ({ handleClickNuevaOperacion }) => {
+const ModalListaOperaciones = ({ operaciones, handleClickNuevaOperacion }) => {
 	const { data, setData } = useContext(DataContext);
 
 	const handleClickEliminarOperacion = (id) => {
@@ -26,8 +26,8 @@ const ModalListaOperaciones = ({ handleClickNuevaOperacion }) => {
 				<div className="title-opn">Monto</div>
 				<div className="title-opn">Acciones</div>
 			</div>
-			{data.operaciones.length > 0 ? (
-				data.operaciones.map((operacion) => (
+			{operaciones.length > 0 ? (
+				operaciones.map((operacion) => (
 					<div key={operacion.id} className="row">
 						<div className="flex-item">
 							<span className="span-description-opn">
@@ -67,7 +67,9 @@ const ModalListaOperaciones = ({ handleClickNuevaOperacion }) => {
 					</div>
 				))
 			) : (
-				<span>No hay operaciones disponibles.</span>
+				<div className="span-opcn-modal">
+					<span>No hay operaciones disponibles.</span>
+				</div>
 			)}
 		</div>
 	);

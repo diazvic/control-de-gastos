@@ -62,3 +62,7 @@
 .monto-gasto {
 	color: $color-gasto;
 }
+.span-opcn-modal {
+	@include flex-center;
+	height: 25rem;
+}
