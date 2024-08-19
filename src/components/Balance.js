@@ -33,6 +33,14 @@ const Balance = () => {
 			.filter((operacion) => operacion.tipo === "Ganancia")
 			.reduce((total, operacion) => total + parseFloat(operacion.monto), 0);
 	};
+	const sumaGastos = () => {
+		return data.operaciones
+			.filter((operacion) => operacion.tipo === "Gasto")
+			.reduce((total, operacion) => total + parseFloat(operacion.monto), 0);
+	};
+	const totalBalance = () => {
+		return sumaGanancia() - sumaGastos();
+	};
 	//funcion para mostrar modal de filtros y a la vez ocultarlos
 	const toggleFiltros = () => {
 		setMostrarFiltros(!mostrarFiltros);
@@ -124,11 +132,11 @@ const Balance = () => {
 						</div>
 						<div className="contenedor-filas">
 							<div>gastos</div>
-							<div className="gasto">$-0</div>
+							<div className="gasto">$-{sumaGastos()}</div>
 						</div>
 						<div className="contenedor-filas">
 							<div className="total-balance">total</div>
-							<div>$0</div>
+							<div>${totalBalance()}</div>
 						</div>
 					</div>
 				</div>
