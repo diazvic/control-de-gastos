@@ -27,6 +27,12 @@ const Balance = () => {
 	useEffect(() => {
 		setMostrarImagenOperacion(data.operaciones.length === 0);
 	}, [data.operaciones]);
+
+	const sumaGanancia = () => {
+		return data.operaciones
+			.filter((operacion) => operacion.tipo === "Ganancia")
+			.reduce((total, operacion) => total + parseFloat(operacion.monto), 0);
+	};
 	//funcion para mostrar modal de filtros y a la vez ocultarlos
 	const toggleFiltros = () => {
 		setMostrarFiltros(!mostrarFiltros);
@@ -114,7 +120,7 @@ const Balance = () => {
 					<div className="grupo-filas">
 						<div className="contenedor-filas">
 							<div>ganancias</div>
-							<div className="ganancia">$+0</div>
+							<div className="ganancia">$+{sumaGanancia()}</div>
 						</div>
 						<div className="contenedor-filas">
 							<div>gastos</div>
