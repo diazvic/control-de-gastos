@@ -5,6 +5,9 @@ import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../context/DataContext";
 import ModalListaOperaciones from "./ModalListaOperaciones";
 import { v4 as uuidv4 } from "uuid";
+import dayjs from "dayjs";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+dayjs.extend(isSameOrAfter);
 const Balance = () => {
 	const [mostrarFiltros, setMostrarFiltros] = useState(true);
 	const [mostrarModalOperacion, setMostrarModalOperacion] = useState(false);
@@ -25,6 +28,7 @@ const Balance = () => {
 	);
 	const [filtroTipo, setFiltroTipo] = useState("");
 	const [filtroCategoria, setFiltroCategoria] = useState("");
+	const [filterDate, setFilterDate] = useState("");
 	useEffect(() => {
 		setMostrarImagenOperacion(data.operaciones.length === 0);
 	}, [data.operaciones]);
@@ -47,19 +51,30 @@ const Balance = () => {
 		const tipoCoincide = filtroTipo === "" || operacion.tipo === filtroTipo;
 		const categoriaCoincide =
 			filtroCategoria === "" || operacion.categoria === filtroCategoria;
-		return tipoCoincide && categoriaCoincide;
+
+		//Verifico si la fecha es valida con dayjs
+		const operacionFecha = dayjs(operacion.fecha);
+		const filterDateFormatted = filterDate ? dayjs(filterDate) : null;
+
+		// Compara las fechas solo si filterDate está definido y operacion.fecha es válida
+		const fechaCoincide =
+			!filterDateFormatted ||
+			operacionFecha.isSameOrAfter(filterDateFormatted, "day");
+		return tipoCoincide && categoriaCoincide && fechaCoincide;
 	});
 
 	const handleSelectFilterType = (e) => {
-		console.log("test");
 		setFiltroTipo(e.target.value);
 	};
 
 	const handleSelectFilterCategory = (e) => {
-		console.log("test category");
 		setFiltroCategoria(e.target.value);
 	};
 
+	//funcion filtrar por fecha
+	const handleChangeDate = (e) => {
+		setFilterDate(e.target.value);
+	};
 	//funcion para mostrar modal de filtros y a la vez ocultarlos
 	const toggleFiltros = () => {
 		setMostrarFiltros(!mostrarFiltros);
@@ -183,7 +198,12 @@ const Balance = () => {
 							))}
 						</select>
 						<label>desde</label>
-						<input type="date"></input>
+						<input
+							type="date"
+							name="fecha"
+							value={valuesForm.fecha}
+							onChange={handleChangeDate}
+						></input>
 						<label>ordenar por</label>
 						<select>
 							<option>Más reciente</option>
