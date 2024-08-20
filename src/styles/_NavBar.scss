@@ -15,6 +15,7 @@ nav {
 		margin: 1rem;
 		padding: 0.5rem;
 	}
+
 	.contenedor-nav-lista {
 		ul {
 			list-style: none;
@@ -38,5 +39,42 @@ nav {
 				}
 			}
 		}
+	}
+}
+.mobile-menu-icon {
+	display: none;
+}
+
+//menu mobile
+@media screen and (max-width: 768px) {
+	.contenedor-nav-lista {
+		display: none;
+		&.active {
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			top: 60px;
+			left: 0;
+			width: 100%;
+			background-color: $color-principal;
+			padding: 1rem;
+			z-index: 999;
+		}
+		ul {
+			flex-direction: column;
+			li {
+				margin: 1rem 0;
+			}
+		}
+	}
+	.mobile-menu-icon {
+		display: flex;
+		font-size: 1.5rem;
+		color: #fff;
+		background: none;
+		border: none;
+		cursor: pointer;
+		justify-content: center;
+		align-items: center;
 	}
 }
