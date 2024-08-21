@@ -66,3 +66,9 @@
 	@include flex-center;
 	height: 25rem;
 }
+// mobile
+@media screen and (max-width: 768px) {
+	.header {
+		font-size: 0.75rem;
+	}
+}

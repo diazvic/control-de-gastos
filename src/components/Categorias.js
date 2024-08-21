@@ -17,7 +17,7 @@ const Categorias = () => {
 	return (
 		<section>
 			<div
-				className={`contenedor-modal ${showModalEditCategory ? "oculto" : ""}`}
+				className={`contenedor-modal  ${showModalEditCategory ? "oculto" : ""}`}
 			>
 				<h2 className="titulo-categorias">Categorías</h2>
 				<form className="form-categorias">

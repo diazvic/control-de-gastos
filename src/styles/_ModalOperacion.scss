@@ -40,3 +40,9 @@
 .oculto {
 	display: none;
 }
+// mobile
+@media screen and (max-width: 768px) {
+	.contenedor-modal {
+		width: 20.75rem;
+	}
+}

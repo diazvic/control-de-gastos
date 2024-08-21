@@ -119,3 +119,13 @@ section {
 		}
 	}
 }
+
+// mobile
+@media screen and (max-width: 768px) {
+	section {
+		@include flex-wrap;
+	}
+	.operacion-balance-titulo {
+		@include flex-column;
+	}
+}
