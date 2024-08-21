@@ -127,5 +127,11 @@ section {
 	}
 	.operacion-balance-titulo {
 		@include flex-column;
+		h3 {
+			@include flex-justify;
+		}
+	}
+	.parrafo-operaciones {
+		text-align: center;
 	}
 }

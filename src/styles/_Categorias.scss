@@ -50,3 +50,9 @@
 		}
 	}
 }
+// mobile
+@media screen and (max-width: 768px) {
+	.ctn-categorias-lista {
+		@include flex-column;
+	}
+}
