@@ -1,5 +1,5 @@
 import "./App.scss";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Balance from "./components/Balance";
 import Categorias from "./components/Categorias";
@@ -12,6 +12,7 @@ const App = () => {
 				<DataProvider>
 					<NavBar />
 					<Routes>
+						<Route path="/" element={<Navigate to="/balance" />} />
 						<Route path="/balance" element={<Balance />}></Route>
 						<Route path="/categorias" element={<Categorias />}></Route>
 						<Route path="/reportes" element={<Reportes />}></Route>
