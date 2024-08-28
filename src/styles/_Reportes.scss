@@ -1,0 +1,23 @@
+@import "_Variables";
+@import "../App.scss";
+
+.reportes-title {
+	font-size: 2.5rem;
+	color: $color-form;
+	margin: 1.125rem;
+	padding: 0.225rem;
+}
+.box-resume {
+	margin: 3rem;
+}
+.title-resume {
+	font-size: 1.5rem;
+	color: $color-form;
+}
+.flex-reportes {
+	display: flex;
+	justify-content: space-around;
+}
+.report {
+	margin: 1rem;
+}
