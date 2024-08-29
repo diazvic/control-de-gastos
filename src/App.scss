@@ -42,6 +42,10 @@ body {
 	display: flex;
 	justify-content: flex-end;
 }
+@mixin flex-space-around {
+	display: flex;
+	justify-content: space-around;
+}
 @mixin capitalizar-texto {
 	text-transform: capitalize;
 }
