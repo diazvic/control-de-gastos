@@ -111,7 +111,7 @@ const Reportes = () => {
 				<div className="box-resume">
 					<h4 className="title-resume">Resumen</h4>
 					<div className="flex-reportes">
-						Categoría con mayor ganancia
+						<span>Categoría con mayor ganancia</span>
 						<div className="lista-categorias">
 							{categoriaMayorGanancia
 								? categoriaMayorGanancia.nombre
@@ -124,7 +124,7 @@ const Reportes = () => {
 						</div>
 					</div>
 					<div className="flex-reportes">
-						Categoría con mayor gasto
+						<span>Categoría con mayor gasto</span>
 						<div className="lista-categorias">
 							{categoriaMayorGasto ? categoriaMayorGasto.nombre : "Calculando"}
 						</div>
@@ -141,7 +141,7 @@ const Reportes = () => {
 						</div>
 					</div>
 					<div className="flex-reportes">
-						Categoría con mayor balance
+						<span>Categoría con mayor balance</span>
 						<div className="lista-categorias">
 							{categoriaBalance ? categoriaBalance.nombre : ""}
 						</div>
@@ -151,19 +151,25 @@ const Reportes = () => {
 								: ""}
 						</div>
 					</div>
-					<div>
-						Mes con mayor ganancia
+					<div className="flex-reportes">
+						<span>Mes con mayor ganancia</span>
 						<div>{mesMayorGanancia ? mesMayorGanancia.mes : ""}</div>
-						<div>
+						<div className={mesMayorGanancia ? "monto-ganancia" : ""}>
 							{mesMayorGanancia
 								? `$${mesMayorGanancia.ganancia.toFixed(2)}`
 								: ""}
 						</div>
 					</div>
-					<div>
-						Mes con mayor gasto
+					<div className="flex-reportes">
+						<span>Mes con mayor gasto</span>
 						<div>{mesMenorGanancia ? mesMenorGanancia.mes : ""}</div>
-						<div>
+						<div
+							className={
+								mesMenorGanancia === "Ganancia"
+									? "monto-ganancia"
+									: "monto-gasto"
+							}
+						>
 							{mesMenorGanancia ? `$${mesMenorGanancia.gasto.toFixed(2)}` : ""}
 						</div>
 					</div>

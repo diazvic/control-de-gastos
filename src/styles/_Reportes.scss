@@ -15,9 +15,11 @@
 	color: $color-form;
 }
 .flex-reportes {
-	display: flex;
-	justify-content: space-around;
-}
-.report {
+	@include flex-space-around;
 	margin: 1rem;
+	padding: 1.125rem;
+	span {
+		font-weight: bold;
+		color: $color-titulos;
+	}
 }
