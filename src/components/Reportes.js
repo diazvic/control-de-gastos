@@ -5,6 +5,7 @@ const Reportes = () => {
 	const { data } = useContext(DataContext);
 	const [categoriaMayorGanancia, setCategoriaMayorGanancia] = useState(null);
 	const [categoriaMayorGasto, setCategoriaMayorGasto] = useState(null);
+	const [categoriaBalance, setCategoriaBalance] = useState(null);
 
 	useEffect(() => {
 		if (data && data.operaciones && data.categorias) {
@@ -25,7 +26,11 @@ const Reportes = () => {
 						(op) => op.categoria === categoria.nombre && op.tipo === "Gasto"
 					)
 					.reduce((total, op) => total + Number(op.monto), 0);
-				return { ...categoria, gananciaTotal, gastoTotal };
+
+				//balance
+				const balance = gananciaTotal - gastoTotal;
+
+				return { ...categoria, gananciaTotal, gastoTotal, balance };
 			});
 
 			const catMayorGanancia = resumenPorCategoria.reduce(
@@ -38,8 +43,14 @@ const Reportes = () => {
 				{ gastoTotal: -Infinity }
 			);
 
+			const catMayorBalance = resumenPorCategoria.reduce(
+				(max, cat) => (cat.balance > max.balance ? cat : max),
+				{ balance: -Infinity }
+			);
+
 			setCategoriaMayorGanancia(catMayorGanancia);
 			setCategoriaMayorGasto(catMayorGasto);
+			setCategoriaBalance(catMayorBalance);
 			console.log("Categoría con mayor ganancia:", catMayorGanancia);
 			console.log(catMayorGanancia);
 		}
@@ -60,7 +71,7 @@ const Reportes = () => {
 								? categoriaMayorGanancia.nombre
 								: "Calculando"}
 						</div>
-						<div>
+						<div className={categoriaMayorGanancia ? "monto-ganancia" : ""}>
 							{categoriaMayorGanancia
 								? `$${categoriaMayorGanancia.gananciaTotal.toFixed(2)}`
 								: "Calculando..."}
@@ -71,13 +82,29 @@ const Reportes = () => {
 						<div className="lista-categorias">
 							{categoriaMayorGasto ? categoriaMayorGasto.nombre : "Calculando"}
 						</div>
-						<div>
+						<div
+							className={
+								categoriaMayorGasto === "Ganancia"
+									? "monto-ganancia"
+									: "monto-gasto"
+							}
+						>
 							{categoriaMayorGasto
 								? `$${categoriaMayorGasto.gastoTotal.toFixed(2)}`
 								: "Calculando..."}
 						</div>
 					</div>
-					<div>Categoría con mayor balance</div>
+					<div className="flex-reportes">
+						Categoría con mayor balance
+						<div className="lista-categorias">
+							{categoriaBalance ? categoriaBalance.nombre : ""}
+						</div>
+						<div>
+							{categoriaBalance
+								? `$${categoriaBalance.balance.toFixed(2)}`
+								: ""}
+						</div>
+					</div>
 					<div>Mes con mayor ganancia</div>
 					<div>Mes con mayor gasto</div>
 				</div>
