@@ -6,7 +6,8 @@ const Reportes = () => {
 	const [categoriaMayorGanancia, setCategoriaMayorGanancia] = useState(null);
 	const [categoriaMayorGasto, setCategoriaMayorGasto] = useState(null);
 	const [categoriaBalance, setCategoriaBalance] = useState(null);
-
+	const [mesMayorGanancia, setMesMayorGanancia] = useState(null);
+	const [mesMenorGanancia, setMesMenorGanancia] = useState(null);
 	useEffect(() => {
 		if (data && data.operaciones && data.categorias) {
 			const resumenPorCategoria = data.categorias.map((categoria) => {
@@ -30,7 +31,12 @@ const Reportes = () => {
 				//balance
 				const balance = gananciaTotal - gastoTotal;
 
-				return { ...categoria, gananciaTotal, gastoTotal, balance };
+				return {
+					...categoria,
+					gananciaTotal,
+					gastoTotal,
+					balance,
+				};
 			});
 
 			const catMayorGanancia = resumenPorCategoria.reduce(
@@ -48,11 +54,51 @@ const Reportes = () => {
 				{ balance: -Infinity }
 			);
 
+			//mes con mayor y menor ganancia
+
+			const operacionesPorMes = data.operaciones.reduce((acc, op) => {
+				const mes = op.fecha;
+				if (!acc[mes]) acc[mes] = { ganancia: 0, gasto: 0 };
+				console.log(mes);
+
+				if (op.tipo === "Ganancia") {
+					acc[mes].ganancia += Number(op.monto);
+				} else if (op.tipo === "Gasto") {
+					acc[mes].gasto += Number(op.monto);
+				}
+
+				return acc;
+			}, {});
+
+			const catConMayorGananciaPorMes = Object.entries(
+				operacionesPorMes
+			).reduce(
+				(max, [mes, datos]) =>
+					datos.ganancia > max.ganancia
+						? { mes, ganancia: datos.ganancia }
+						: max,
+				{ ganancia: -Infinity }
+			);
+
+			const catConMenorGananciaPorMes = Object.entries(
+				operacionesPorMes
+			).reduce(
+				(max, [mes, datos]) =>
+					datos.gasto > max.gasto ? { mes, gasto: datos.gasto } : max,
+				{ gasto: -Infinity }
+			);
+
 			setCategoriaMayorGanancia(catMayorGanancia);
 			setCategoriaMayorGasto(catMayorGasto);
 			setCategoriaBalance(catMayorBalance);
+			setMesMayorGanancia(catConMayorGananciaPorMes);
+			setMesMenorGanancia(catConMenorGananciaPorMes);
 			console.log("Categoría con mayor ganancia:", catMayorGanancia);
 			console.log(catMayorGanancia);
+			console.log(
+				"mayor ganancia por mes de categorias:",
+				catConMayorGananciaPorMes
+			);
 		}
 		console.log("Operaciones:", data.operaciones);
 		console.log("Categorías:", data.categorias);
@@ -105,8 +151,22 @@ const Reportes = () => {
 								: ""}
 						</div>
 					</div>
-					<div>Mes con mayor ganancia</div>
-					<div>Mes con mayor gasto</div>
+					<div>
+						Mes con mayor ganancia
+						<div>{mesMayorGanancia ? mesMayorGanancia.mes : ""}</div>
+						<div>
+							{mesMayorGanancia
+								? `$${mesMayorGanancia.ganancia.toFixed(2)}`
+								: ""}
+						</div>
+					</div>
+					<div>
+						Mes con mayor gasto
+						<div>{mesMenorGanancia ? mesMenorGanancia.mes : ""}</div>
+						<div>
+							{mesMenorGanancia ? `$${mesMenorGanancia.gasto.toFixed(2)}` : ""}
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
