@@ -8,6 +8,7 @@ const Reportes = () => {
 	const [categoriaBalance, setCategoriaBalance] = useState(null);
 	const [mesMayorGanancia, setMesMayorGanancia] = useState(null);
 	const [mesMenorGanancia, setMesMenorGanancia] = useState(null);
+	const [totalesPorCategorias, setTotalesPorCategorias] = useState([]);
 	useEffect(() => {
 		if (data && data.operaciones && data.categorias) {
 			const resumenPorCategoria = data.categorias.map((categoria) => {
@@ -54,12 +55,10 @@ const Reportes = () => {
 				{ balance: -Infinity }
 			);
 
-			//mes con mayor y menor ganancia
-
 			const operacionesPorMes = data.operaciones.reduce((acc, op) => {
 				const mes = op.fecha;
 				if (!acc[mes]) acc[mes] = { ganancia: 0, gasto: 0 };
-				console.log(mes);
+				// console.log(mes);
 
 				if (op.tipo === "Ganancia") {
 					acc[mes].ganancia += Number(op.monto);
@@ -93,15 +92,14 @@ const Reportes = () => {
 			setCategoriaBalance(catMayorBalance);
 			setMesMayorGanancia(catConMayorGananciaPorMes);
 			setMesMenorGanancia(catConMenorGananciaPorMes);
-			console.log("Categoría con mayor ganancia:", catMayorGanancia);
-			console.log(catMayorGanancia);
-			console.log(
-				"mayor ganancia por mes de categorias:",
-				catConMayorGananciaPorMes
-			);
+			setTotalesPorCategorias(resumenPorCategoria);
+			// 	console.log("Categoría con mayor ganancia:", catMayorGanancia);
+			// 	console.log(catMayorGanancia);
+			// 	console.log(
+			// 		"mayor ganancia por mes de categorias:",
+			// 		catConMayorGananciaPorMes
+			// 	);
 		}
-		console.log("Operaciones:", data.operaciones);
-		console.log("Categorías:", data.categorias);
 	}, [data]);
 
 	return (
@@ -171,6 +169,34 @@ const Reportes = () => {
 							}
 						>
 							{mesMenorGanancia ? `$${mesMenorGanancia.gasto.toFixed(2)}` : ""}
+						</div>
+					</div>
+					<h4 className="title-resume">Totales por categorías</h4>
+					<div className="flex-reportes">
+						<div>
+							<span>Categoria</span>
+							{totalesPorCategorias.map((cat) => (
+								<li key={cat.nombre}>{cat.nombre}</li>
+							))}
+						</div>
+						<div>
+							<span>Ganancias</span>
+							{/* aca tiene q venir las ganancias de c/categoria */}
+							{totalesPorCategorias.map((cat) => (
+								<li key={cat.nombre}>${cat.gananciaTotal.toFixed(2)}</li>
+							))}
+						</div>
+						<div>
+							<span>Gastos</span>
+							{totalesPorCategorias.map((cat) => (
+								<li key={cat.nombre}>${cat.gastoTotal.toFixed(2)}</li>
+							))}
+						</div>
+						<div>
+							<span>Balance</span>
+							{totalesPorCategorias.map((cat) => (
+								<li key={cat.nombre}>${cat.balance.toFixed(2)}</li>
+							))}
 						</div>
 					</div>
 				</div>
