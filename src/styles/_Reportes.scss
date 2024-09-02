@@ -23,3 +23,18 @@
 		color: $color-titulos;
 	}
 }
+.box-img-reportes {
+	@include flex-center;
+	@include flex-column;
+	.operaciones-reportes {
+		color: $color-titulos;
+		font-weight: bold;
+		margin: 1rem;
+	}
+	span {
+		margin: 0.625rem;
+	}
+	img {
+		max-width: 60%;
+	}
+}

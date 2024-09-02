@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../context/DataContext";
 import "../styles/_Reportes.scss";
+import imagenReportes from "../imagenes/imagenReportes.svg";
 const Reportes = () => {
 	const { data } = useContext(DataContext);
 	const [categoriaMayorGanancia, setCategoriaMayorGanancia] = useState(null);
@@ -10,7 +11,9 @@ const Reportes = () => {
 	const [mesMenorGanancia, setMesMenorGanancia] = useState(null);
 	const [totalesPorCategorias, setTotalesPorCategorias] = useState([]);
 	const [totalesPorMes, setTotalesPorMes] = useState([]);
-
+	const [mostrarImagenReportes, setMostrarImagenReportes] = useState(
+		data.operaciones.length === 0
+	);
 	useEffect(() => {
 		if (data && data.operaciones && data.categorias) {
 			const resumenPorCategoria = data.categorias.map((categoria) => {
@@ -108,6 +111,7 @@ const Reportes = () => {
 			setMesMenorGanancia(catConMenorGananciaPorMes);
 			setTotalesPorCategorias(resumenPorCategoria);
 			setTotalesPorMes(totalesPorMesReportes);
+			setMostrarImagenReportes(data.operaciones.length === 0);
 			// 	console.log("Categoría con mayor ganancia:", catMayorGanancia);
 			// 	console.log(catMayorGanancia);
 			// 	console.log(
@@ -121,154 +125,172 @@ const Reportes = () => {
 		<section>
 			<div className="contenedor-operacion-balance">
 				<h2 className="reportes-title">Reportes</h2>
-				<div className="box-resume">
-					<h4 className="title-resume">Resumen</h4>
-					<div className="flex-reportes">
-						<span>Categoría con mayor ganancia</span>
-						<div className="lista-categorias">
-							{categoriaMayorGanancia
-								? categoriaMayorGanancia.nombre
-								: "Calculando"}
+				<div className="box-img-reportes">
+					{mostrarImagenReportes && (
+						<div className="box-img-reportes">
+							<img src={imagenReportes} alt="reportes de las operaciones" />
+							<p className="operaciones-reportes">Operaciones insuficientes</p>
+							<span>Prueba agregando mas operaciones</span>
 						</div>
-						<div className={categoriaMayorGanancia ? "monto-ganancia" : ""}>
-							{categoriaMayorGanancia
-								? `$${categoriaMayorGanancia.gananciaTotal.toFixed(2)}`
-								: "Calculando..."}
-						</div>
-					</div>
-					<div className="flex-reportes">
-						<span>Categoría con mayor gasto</span>
-						<div className="lista-categorias">
-							{categoriaMayorGasto ? categoriaMayorGasto.nombre : "Calculando"}
-						</div>
-						<div
-							className={
-								categoriaMayorGasto === "Ganancia"
-									? "monto-ganancia"
-									: "monto-gasto"
-							}
-						>
-							{categoriaMayorGasto
-								? `$${categoriaMayorGasto.gastoTotal.toFixed(2)}`
-								: "Calculando..."}
-						</div>
-					</div>
-					<div className="flex-reportes">
-						<span>Categoría con mayor balance</span>
-						<div className="lista-categorias">
-							{categoriaBalance ? categoriaBalance.nombre : ""}
-						</div>
-						<div>
-							{categoriaBalance
-								? `$${categoriaBalance.balance.toFixed(2)}`
-								: ""}
-						</div>
-					</div>
-					<div className="flex-reportes">
-						<span>Mes con mayor ganancia</span>
-						<div>{mesMayorGanancia ? mesMayorGanancia.mes : ""}</div>
-						<div className={mesMayorGanancia ? "monto-ganancia" : ""}>
-							{mesMayorGanancia
-								? `$${mesMayorGanancia.ganancia.toFixed(2)}`
-								: ""}
-						</div>
-					</div>
-					<div className="flex-reportes">
-						<span>Mes con mayor gasto</span>
-						<div>{mesMenorGanancia ? mesMenorGanancia.mes : ""}</div>
-						<div
-							className={
-								mesMenorGanancia === "Ganancia"
-									? "monto-ganancia"
-									: "monto-gasto"
-							}
-						>
-							{mesMenorGanancia ? `$${mesMenorGanancia.gasto.toFixed(2)}` : ""}
-						</div>
-					</div>
-					<h4 className="title-resume">Totales por categorías</h4>
-					<div className="flex-reportes">
-						<div>
-							<span>Categoria</span>
-							{totalesPorCategorias.map((cat) => (
-								<div key={cat.nombre} style={{ textTransform: "capitalize" }}>
-									{cat.nombre}
-								</div>
-							))}
-						</div>
-						<div>
-							<span>Ganancias</span>
-							{totalesPorCategorias.map((cat) => (
-								<div
-									key={cat.nombre}
-									className={cat.gananciaTotal >= 0 ? "monto-ganancia" : ""}
-								>
-									${cat.gananciaTotal.toFixed(2)}
-								</div>
-							))}
-						</div>
-						<div>
-							<span>Gastos</span>
-							{totalesPorCategorias.map((cat) => (
-								<div
-									key={cat.nombre}
-									className={cat.gastoTotal >= 0 ? "monto-gasto" : ""}
-								>
-									${cat.gastoTotal.toFixed(2)}
-								</div>
-							))}
-						</div>
-						<div>
-							<span>Balance</span>
-							{totalesPorCategorias.map((cat) => (
-								<div key={cat.nombre}>${cat.balance.toFixed(2)}</div>
-							))}
-						</div>
-					</div>
-
-					<h4 className="title-resume">Totales por mes</h4>
-					<div className="flex-reportes">
-						<div>
-							<span>Mes</span>
-							{totalesPorMes.map((tot) => (
-								<div
-									key={`${tot.mes}-mes`}
-									style={{ textTransform: "capitalize" }}
-								>
-									{tot.mes}
-								</div>
-							))}
-						</div>
-						<div>
-							<span>Ganancias</span>
-							{totalesPorMes.map((tot) => (
-								<div
-									key={`${tot.mes}-ganancia`}
-									className={tot.ganancia >= 0 ? "monto-ganancia" : ""}
-								>
-									${tot.ganancia.toFixed(2)}
-								</div>
-							))}
-						</div>
-						<div>
-							<span>Gastos</span>
-							{totalesPorMes.map((tot) => (
-								<div
-									key={`${tot.mes}-gasto`}
-									className={tot.gasto >= 0 ? "monto-gasto" : ""}
-								>
-									${tot.gasto.toFixed(2)}
-								</div>
-							))}
-						</div>
-						<div>
-							<span>Balance</span>
-							{totalesPorMes.map((tot) => (
-								<div key={`${tot.mes}-balance`}>${tot.balance.toFixed(2)}</div>
-							))}
-						</div>
-					</div>
+					)}
 				</div>
+				{data.operaciones.length > 0 ? (
+					<div className="box-resume">
+						<h4 className="title-resume">Resumen</h4>
+						<div className="flex-reportes">
+							<span>Categoría con mayor ganancia</span>
+							<div className="lista-categorias">
+								{categoriaMayorGanancia
+									? categoriaMayorGanancia.nombre
+									: "Calculando"}
+							</div>
+							<div className={categoriaMayorGanancia ? "monto-ganancia" : ""}>
+								{categoriaMayorGanancia
+									? `$${categoriaMayorGanancia.gananciaTotal.toFixed(2)}`
+									: "Calculando..."}
+							</div>
+						</div>
+						<div className="flex-reportes">
+							<span>Categoría con mayor gasto</span>
+							<div className="lista-categorias">
+								{categoriaMayorGasto
+									? categoriaMayorGasto.nombre
+									: "Calculando"}
+							</div>
+							<div
+								className={
+									categoriaMayorGasto === "Ganancia"
+										? "monto-ganancia"
+										: "monto-gasto"
+								}
+							>
+								{categoriaMayorGasto
+									? `$${categoriaMayorGasto.gastoTotal.toFixed(2)}`
+									: "Calculando..."}
+							</div>
+						</div>
+						<div className="flex-reportes">
+							<span>Categoría con mayor balance</span>
+							<div className="lista-categorias">
+								{categoriaBalance ? categoriaBalance.nombre : ""}
+							</div>
+							<div>
+								{categoriaBalance
+									? `$${categoriaBalance.balance.toFixed(2)}`
+									: ""}
+							</div>
+						</div>
+						<div className="flex-reportes">
+							<span>Mes con mayor ganancia</span>
+							<div>{mesMayorGanancia ? mesMayorGanancia.mes : ""}</div>
+							<div className={mesMayorGanancia ? "monto-ganancia" : ""}>
+								{mesMayorGanancia
+									? `$${mesMayorGanancia.ganancia.toFixed(2)}`
+									: ""}
+							</div>
+						</div>
+						<div className="flex-reportes">
+							<span>Mes con mayor gasto</span>
+							<div>{mesMenorGanancia ? mesMenorGanancia.mes : ""}</div>
+							<div
+								className={
+									mesMenorGanancia === "Ganancia"
+										? "monto-ganancia"
+										: "monto-gasto"
+								}
+							>
+								{mesMenorGanancia
+									? `$${mesMenorGanancia.gasto.toFixed(2)}`
+									: ""}
+							</div>
+						</div>
+						<h4 className="title-resume">Totales por categorías</h4>
+						<div className="flex-reportes">
+							<div>
+								<span>Categoria</span>
+								{totalesPorCategorias.map((cat) => (
+									<div key={cat.nombre} style={{ textTransform: "capitalize" }}>
+										{cat.nombre}
+									</div>
+								))}
+							</div>
+							<div>
+								<span>Ganancias</span>
+								{totalesPorCategorias.map((cat) => (
+									<div
+										key={cat.nombre}
+										className={cat.gananciaTotal >= 0 ? "monto-ganancia" : ""}
+									>
+										${cat.gananciaTotal.toFixed(2)}
+									</div>
+								))}
+							</div>
+							<div>
+								<span>Gastos</span>
+								{totalesPorCategorias.map((cat) => (
+									<div
+										key={cat.nombre}
+										className={cat.gastoTotal >= 0 ? "monto-gasto" : ""}
+									>
+										${cat.gastoTotal.toFixed(2)}
+									</div>
+								))}
+							</div>
+							<div>
+								<span>Balance</span>
+								{totalesPorCategorias.map((cat) => (
+									<div key={cat.nombre}>${cat.balance.toFixed(2)}</div>
+								))}
+							</div>
+						</div>
+						<h4 className="title-resume">Totales por mes</h4>
+						<div className="flex-reportes">
+							<div>
+								<span>Mes</span>
+								{totalesPorMes.map((tot) => (
+									<div
+										key={`${tot.mes}-mes`}
+										style={{ textTransform: "capitalize" }}
+									>
+										{tot.mes}
+									</div>
+								))}
+							</div>
+							<div>
+								<span>Ganancias</span>
+								{totalesPorMes.map((tot) => (
+									<div
+										key={`${tot.mes}-ganancia`}
+										className={tot.ganancia >= 0 ? "monto-ganancia" : ""}
+									>
+										${tot.ganancia.toFixed(2)}
+									</div>
+								))}
+							</div>
+							<div>
+								<span>Gastos</span>
+								{totalesPorMes.map((tot) => (
+									<div
+										key={`${tot.mes}-gasto`}
+										className={tot.gasto >= 0 ? "monto-gasto" : ""}
+									>
+										${tot.gasto.toFixed(2)}
+									</div>
+								))}
+							</div>
+							<div>
+								<span>Balance</span>
+								{totalesPorMes.map((tot) => (
+									<div key={`${tot.mes}-balance`}>
+										${tot.balance.toFixed(2)}
+									</div>
+								))}
+							</div>
+						</div>
+					</div>
+				) : (
+					""
+				)}
 			</div>
 		</section>
 	);
