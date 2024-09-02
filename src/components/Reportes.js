@@ -191,25 +191,35 @@ const Reportes = () => {
 						<div>
 							<span>Categoria</span>
 							{totalesPorCategorias.map((cat) => (
-								<li key={cat.nombre}>{cat.nombre}</li>
+								<div key={cat.nombre}>{cat.nombre}</div>
 							))}
 						</div>
 						<div>
 							<span>Ganancias</span>
 							{totalesPorCategorias.map((cat) => (
-								<li key={cat.nombre}>${cat.gananciaTotal.toFixed(2)}</li>
+								<div
+									key={cat.nombre}
+									className={cat.gananciaTotal >= 0 ? "monto-ganancia" : ""}
+								>
+									${cat.gananciaTotal.toFixed(2)}
+								</div>
 							))}
 						</div>
 						<div>
 							<span>Gastos</span>
 							{totalesPorCategorias.map((cat) => (
-								<li key={cat.nombre}>${cat.gastoTotal.toFixed(2)}</li>
+								<div
+									key={cat.nombre}
+									className={cat.gastoTotal >= 0 ? "monto-gasto" : ""}
+								>
+									${cat.gastoTotal.toFixed(2)}
+								</div>
 							))}
 						</div>
 						<div>
 							<span>Balance</span>
 							{totalesPorCategorias.map((cat) => (
-								<li key={cat.nombre}>${cat.balance.toFixed(2)}</li>
+								<div key={cat.nombre}>${cat.balance.toFixed(2)}</div>
 							))}
 						</div>
 					</div>
@@ -219,25 +229,40 @@ const Reportes = () => {
 						<div>
 							<span>Mes</span>
 							{totalesPorMes.map((tot) => (
-								<div style={{ textTransform: "capitalize" }}>{tot.mes}</div>
+								<div
+									key={`${tot.mes}-mes`}
+									style={{ textTransform: "capitalize" }}
+								>
+									{tot.mes}
+								</div>
 							))}
 						</div>
 						<div>
 							<span>Ganancias</span>
 							{totalesPorMes.map((tot) => (
-								<div key={tot.nombre}>${tot.ganancia.toFixed(2)}</div>
+								<div
+									key={`${tot.mes}-ganancia`}
+									className={tot.ganancia >= 0 ? "monto-ganancia" : ""}
+								>
+									${tot.ganancia.toFixed(2)}
+								</div>
 							))}
 						</div>
 						<div>
 							<span>Gastos</span>
 							{totalesPorMes.map((tot) => (
-								<div>${tot.gasto.toFixed(2)}</div>
+								<div
+									key={`${tot.mes}-gasto`}
+									className={tot.gasto >= 0 ? "monto-gasto" : ""}
+								>
+									${tot.gasto.toFixed(2)}
+								</div>
 							))}
 						</div>
 						<div>
 							<span>Balance</span>
 							{totalesPorMes.map((tot) => (
-								<div>${tot.balance.toFixed(2)}</div>
+								<div key={`${tot.mes}-balance`}>${tot.balance.toFixed(2)}</div>
 							))}
 						</div>
 					</div>
