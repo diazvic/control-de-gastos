@@ -9,6 +9,8 @@ const Reportes = () => {
 	const [mesMayorGanancia, setMesMayorGanancia] = useState(null);
 	const [mesMenorGanancia, setMesMenorGanancia] = useState(null);
 	const [totalesPorCategorias, setTotalesPorCategorias] = useState([]);
+	const [totalesPorMes, setTotalesPorMes] = useState([]);
+
 	useEffect(() => {
 		if (data && data.operaciones && data.categorias) {
 			const resumenPorCategoria = data.categorias.map((categoria) => {
@@ -56,7 +58,9 @@ const Reportes = () => {
 			);
 
 			const operacionesPorMes = data.operaciones.reduce((acc, op) => {
-				const mes = op.fecha;
+				const mes = new Date(op.fecha).toLocaleString("default", {
+					month: "long",
+				});
 				if (!acc[mes]) acc[mes] = { ganancia: 0, gasto: 0 };
 				// console.log(mes);
 
@@ -68,6 +72,16 @@ const Reportes = () => {
 
 				return acc;
 			}, {});
+
+			const totalesPorMesReportes = Object.entries(operacionesPorMes).map(
+				//lo paso a un array de objetos
+				([mes, datos]) => ({
+					mes,
+					ganancia: datos.ganancia,
+					gasto: datos.gasto,
+					balance: datos.ganancia - datos.gasto,
+				})
+			);
 
 			const catConMayorGananciaPorMes = Object.entries(
 				operacionesPorMes
@@ -93,15 +107,16 @@ const Reportes = () => {
 			setMesMayorGanancia(catConMayorGananciaPorMes);
 			setMesMenorGanancia(catConMenorGananciaPorMes);
 			setTotalesPorCategorias(resumenPorCategoria);
+			setTotalesPorMes(totalesPorMesReportes);
 			// 	console.log("Categoría con mayor ganancia:", catMayorGanancia);
 			// 	console.log(catMayorGanancia);
 			// 	console.log(
 			// 		"mayor ganancia por mes de categorias:",
 			// 		catConMayorGananciaPorMes
 			// 	);
+			console.log(totalesPorMesReportes);
 		}
 	}, [data]);
-
 	return (
 		<section>
 			<div className="contenedor-operacion-balance">
@@ -176,26 +191,80 @@ const Reportes = () => {
 						<div>
 							<span>Categoria</span>
 							{totalesPorCategorias.map((cat) => (
-								<li key={cat.nombre}>{cat.nombre}</li>
+								<div key={cat.nombre} style={{ textTransform: "capitalize" }}>
+									{cat.nombre}
+								</div>
 							))}
 						</div>
 						<div>
 							<span>Ganancias</span>
-							{/* aca tiene q venir las ganancias de c/categoria */}
 							{totalesPorCategorias.map((cat) => (
-								<li key={cat.nombre}>${cat.gananciaTotal.toFixed(2)}</li>
+								<div
+									key={cat.nombre}
+									className={cat.gananciaTotal >= 0 ? "monto-ganancia" : ""}
+								>
+									${cat.gananciaTotal.toFixed(2)}
+								</div>
 							))}
 						</div>
 						<div>
 							<span>Gastos</span>
 							{totalesPorCategorias.map((cat) => (
-								<li key={cat.nombre}>${cat.gastoTotal.toFixed(2)}</li>
+								<div
+									key={cat.nombre}
+									className={cat.gastoTotal >= 0 ? "monto-gasto" : ""}
+								>
+									${cat.gastoTotal.toFixed(2)}
+								</div>
 							))}
 						</div>
 						<div>
 							<span>Balance</span>
 							{totalesPorCategorias.map((cat) => (
-								<li key={cat.nombre}>${cat.balance.toFixed(2)}</li>
+								<div key={cat.nombre}>${cat.balance.toFixed(2)}</div>
+							))}
+						</div>
+					</div>
+
+					<h4 className="title-resume">Totales por mes</h4>
+					<div className="flex-reportes">
+						<div>
+							<span>Mes</span>
+							{totalesPorMes.map((tot) => (
+								<div
+									key={`${tot.mes}-mes`}
+									style={{ textTransform: "capitalize" }}
+								>
+									{tot.mes}
+								</div>
+							))}
+						</div>
+						<div>
+							<span>Ganancias</span>
+							{totalesPorMes.map((tot) => (
+								<div
+									key={`${tot.mes}-ganancia`}
+									className={tot.ganancia >= 0 ? "monto-ganancia" : ""}
+								>
+									${tot.ganancia.toFixed(2)}
+								</div>
+							))}
+						</div>
+						<div>
+							<span>Gastos</span>
+							{totalesPorMes.map((tot) => (
+								<div
+									key={`${tot.mes}-gasto`}
+									className={tot.gasto >= 0 ? "monto-gasto" : ""}
+								>
+									${tot.gasto.toFixed(2)}
+								</div>
+							))}
+						</div>
+						<div>
+							<span>Balance</span>
+							{totalesPorMes.map((tot) => (
+								<div key={`${tot.mes}-balance`}>${tot.balance.toFixed(2)}</div>
 							))}
 						</div>
 					</div>
