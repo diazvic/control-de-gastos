@@ -191,7 +191,9 @@ const Reportes = () => {
 						<div>
 							<span>Categoria</span>
 							{totalesPorCategorias.map((cat) => (
-								<div key={cat.nombre}>{cat.nombre}</div>
+								<div key={cat.nombre} style={{ textTransform: "capitalize" }}>
+									{cat.nombre}
+								</div>
 							))}
 						</div>
 						<div>
