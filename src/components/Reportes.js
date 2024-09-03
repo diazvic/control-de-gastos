@@ -123,7 +123,7 @@ const Reportes = () => {
 	}, [data]);
 	return (
 		<section>
-			<div className="contenedor-operacion-balance">
+			<div className="contenedor-reportes">
 				<h2 className="reportes-title">Reportes</h2>
 				<div className="box-img-reportes">
 					{mostrarImagenReportes && (
@@ -137,7 +137,7 @@ const Reportes = () => {
 				{data.operaciones.length > 0 ? (
 					<div className="box-resume">
 						<h4 className="title-resume">Resumen</h4>
-						<div className="flex-reportes">
+						<div className="flex-reportes reportes-ctg">
 							<span>Categoría con mayor ganancia</span>
 							<div className="lista-categorias">
 								{categoriaMayorGanancia
@@ -150,7 +150,7 @@ const Reportes = () => {
 									: "Calculando..."}
 							</div>
 						</div>
-						<div className="flex-reportes">
+						<div className="flex-reportes reportes-ctg">
 							<span>Categoría con mayor gasto</span>
 							<div className="lista-categorias">
 								{categoriaMayorGasto
@@ -169,7 +169,7 @@ const Reportes = () => {
 									: "Calculando..."}
 							</div>
 						</div>
-						<div className="flex-reportes">
+						<div className="flex-reportes reportes-ctg">
 							<span>Categoría con mayor balance</span>
 							<div className="lista-categorias">
 								{categoriaBalance ? categoriaBalance.nombre : ""}
@@ -180,7 +180,7 @@ const Reportes = () => {
 									: ""}
 							</div>
 						</div>
-						<div className="flex-reportes">
+						<div className="flex-reportes reportes-ctg">
 							<span>Mes con mayor ganancia</span>
 							<div>{mesMayorGanancia ? mesMayorGanancia.mes : ""}</div>
 							<div className={mesMayorGanancia ? "monto-ganancia" : ""}>
@@ -189,7 +189,7 @@ const Reportes = () => {
 									: ""}
 							</div>
 						</div>
-						<div className="flex-reportes">
+						<div className="flex-reportes reportes-ctg">
 							<span>Mes con mayor gasto</span>
 							<div>{mesMenorGanancia ? mesMenorGanancia.mes : ""}</div>
 							<div
@@ -209,7 +209,11 @@ const Reportes = () => {
 							<div>
 								<span>Categoria</span>
 								{totalesPorCategorias.map((cat) => (
-									<div key={cat.nombre} style={{ textTransform: "capitalize" }}>
+									<div
+										key={cat.nombre}
+										style={{ textTransform: "capitalize" }}
+										className="box-categorias"
+									>
 										{cat.nombre}
 									</div>
 								))}
@@ -219,7 +223,9 @@ const Reportes = () => {
 								{totalesPorCategorias.map((cat) => (
 									<div
 										key={cat.nombre}
-										className={cat.gananciaTotal >= 0 ? "monto-ganancia" : ""}
+										className={`box-ganancias ${
+											cat.gananciaTotal >= 0 ? "monto-ganancia" : ""
+										}`}
 									>
 										${cat.gananciaTotal.toFixed(2)}
 									</div>
@@ -230,7 +236,9 @@ const Reportes = () => {
 								{totalesPorCategorias.map((cat) => (
 									<div
 										key={cat.nombre}
-										className={cat.gastoTotal >= 0 ? "monto-gasto" : ""}
+										className={`box-gastos ${
+											cat.gastoTotal >= 0 ? "monto-gasto" : ""
+										}`}
 									>
 										${cat.gastoTotal.toFixed(2)}
 									</div>
@@ -239,7 +247,9 @@ const Reportes = () => {
 							<div>
 								<span>Balance</span>
 								{totalesPorCategorias.map((cat) => (
-									<div key={cat.nombre}>${cat.balance.toFixed(2)}</div>
+									<div key={cat.nombre} className="box-balance">
+										${cat.balance.toFixed(2)}
+									</div>
 								))}
 							</div>
 						</div>
@@ -251,6 +261,7 @@ const Reportes = () => {
 									<div
 										key={`${tot.mes}-mes`}
 										style={{ textTransform: "capitalize" }}
+										className="box-mes"
 									>
 										{tot.mes}
 									</div>
@@ -261,7 +272,9 @@ const Reportes = () => {
 								{totalesPorMes.map((tot) => (
 									<div
 										key={`${tot.mes}-ganancia`}
-										className={tot.ganancia >= 0 ? "monto-ganancia" : ""}
+										className={`box-ganancias ${
+											tot.ganancia >= 0 ? "monto-ganancia" : ""
+										}`}
 									>
 										${tot.ganancia.toFixed(2)}
 									</div>
@@ -272,7 +285,9 @@ const Reportes = () => {
 								{totalesPorMes.map((tot) => (
 									<div
 										key={`${tot.mes}-gasto`}
-										className={tot.gasto >= 0 ? "monto-gasto" : ""}
+										className={`box-gastos ${
+											tot.gasto >= 0 ? "monto-gasto" : ""
+										}`}
 									>
 										${tot.gasto.toFixed(2)}
 									</div>
@@ -281,7 +296,7 @@ const Reportes = () => {
 							<div>
 								<span>Balance</span>
 								{totalesPorMes.map((tot) => (
-									<div key={`${tot.mes}-balance`}>
+									<div key={`${tot.mes}-balance`} className="box-balance">
 										${tot.balance.toFixed(2)}
 									</div>
 								))}
