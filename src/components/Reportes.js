@@ -65,7 +65,6 @@ const Reportes = () => {
 					month: "long",
 				});
 				if (!acc[mes]) acc[mes] = { ganancia: 0, gasto: 0 };
-				// console.log(mes);
 
 				if (op.tipo === "Ganancia") {
 					acc[mes].ganancia += Number(op.monto);
@@ -112,13 +111,6 @@ const Reportes = () => {
 			setTotalesPorCategorias(resumenPorCategoria);
 			setTotalesPorMes(totalesPorMesReportes);
 			setMostrarImagenReportes(data.operaciones.length === 0);
-			// 	console.log("Categoría con mayor ganancia:", catMayorGanancia);
-			// 	console.log(catMayorGanancia);
-			// 	console.log(
-			// 		"mayor ganancia por mes de categorias:",
-			// 		catConMayorGananciaPorMes
-			// 	);
-			console.log(totalesPorMesReportes);
 		}
 	}, [data]);
 	return (
