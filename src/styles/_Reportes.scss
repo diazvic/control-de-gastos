@@ -56,17 +56,14 @@
 // mobile
 @media screen and (max-width: 768px) {
 	.contenedor-reportes {
-		display: flex;
-		flex-direction: column;
+		@include flex-column;
 		width: 110%;
 	}
 	.reportes-title {
-		display: flex;
-		justify-content: center;
+		@include flex-justify;
 	}
 	.reportes-ctg {
-		display: flex;
-		flex-wrap: wrap;
+		@include flex-wrap;
 		span {
 			text-align: center;
 			margin: 0.625rem;

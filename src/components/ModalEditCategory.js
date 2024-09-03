@@ -19,8 +19,6 @@ const ModalEditCategory = () => {
 		e.preventDefault();
 	};
 	const handleClickEnviarCategoriaEditada = () => {
-		console.log(`El id de la categoria es: ${nuevaCategoria.id}`);
-		console.log(`La nueva cat es ${nuevoNombreCategoria}`);
 		const newData = {
 			...data,
 			categorias: data.categorias.map((item) =>

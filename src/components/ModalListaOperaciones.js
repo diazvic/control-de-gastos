@@ -5,7 +5,6 @@ const ModalListaOperaciones = ({ operaciones, handleClickNuevaOperacion }) => {
 	const { data, setData } = useContext(DataContext);
 
 	const handleClickEliminarOperacion = (id) => {
-		console.log(`el valor del id es ${id}`);
 		// Creo una copia de data y modifico en el lugar el array de operaciones
 		const newDataOperaciones = {
 			...data,

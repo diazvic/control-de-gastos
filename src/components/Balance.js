@@ -177,7 +177,6 @@ const Balance = () => {
 				...valuesForm,
 				id: uuidv4(),
 			};
-			console.log(nuevaOperacionId);
 			const nuevasOperaciones = [...data.operaciones, nuevaOperacionId];
 			setData({
 				...data,
